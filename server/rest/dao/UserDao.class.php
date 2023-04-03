@@ -3,7 +3,7 @@
 class UserDao
 {
     private $conn;
-    private $host = 'localhost';
+    private $host = '127.0.0.1';
     private $database = 'web-project';
     private $username = 'root';
     private $password = '123';
