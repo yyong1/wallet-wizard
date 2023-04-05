@@ -1,0 +1,11 @@
+// class Config
+// {
+//     // $host = 'localhost' might not work, use '127.0.0.1' if that is the case
+//     public static $host = '127.0.0.1';
+//     public static $database = 'db-project';
+//     public static $username = 'username';
+//     public static $password = 'password';
+//     public static $port = '3306';
+// }
+
+// put everything to the PHP brackets

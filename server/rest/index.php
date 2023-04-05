@@ -5,10 +5,6 @@ require 'rest/dao/UserDao.class.php';
 
 Flight::register('userDao', 'UserDao');
 
-// Flight::route('/', function () {
-//     echo "hi";
-// });
-
 Flight::route('GET /api/users', function () {
     Flight::json(Flight::userDao()->getUsers());
 });
