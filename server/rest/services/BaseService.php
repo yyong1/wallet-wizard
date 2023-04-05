@@ -1,5 +1,5 @@
 <?php
-class BaseDao
+class BaseService
 {
     protected $dao;
 

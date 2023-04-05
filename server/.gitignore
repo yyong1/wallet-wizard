@@ -1,2 +1,4 @@
 vendor
 .env
+rest/config.php
+configExample
