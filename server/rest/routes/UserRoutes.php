@@ -1,4 +1,5 @@
 <?php
+
 Flight::route('GET /api/users', function () {
     Flight::json(Flight::userService()->get_all());
 });
@@ -30,6 +31,5 @@ Flight::route('PUT /api/users/@id', function ($id) {
 Flight::route('DELETE /api/users/@id', function ($id) {
     Flight::userService()->delete($id);
 });
-
 
 ?>
