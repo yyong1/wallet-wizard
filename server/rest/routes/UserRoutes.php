@@ -1,5 +1,9 @@
 <?php
 
+Flight::route('GET /hi', function () {
+    echo "hi";
+    //Flight::json(Flight::userService()->get_all());
+});
 Flight::route('GET /api/users', function () {
     Flight::json(Flight::userService()->get_all());
 });

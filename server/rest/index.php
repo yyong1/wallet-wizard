@@ -1,12 +1,13 @@
 <?php
+ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
 
 require '../vendor/autoload.php';
 
 // import and register all business logic files (services) to FlightPHP
-require_once __DIR__ . '/services/UserService.php';
+require_once __DIR__ . '/services/UserServices.php';
 
 
-Flight::register('userService', "UserService");
+Flight::register('userService', "UserServices");
 
 
 // import all routes
@@ -20,5 +21,8 @@ Flight::route('GET /', function () {
 
 
 Flight::start();
+
+
+// echo "hi";
 
 ?>
