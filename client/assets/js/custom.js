@@ -1,14 +1,33 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
   $("main#spapp > section").height($(document).height() - 60);
 
-  var app = $.spapp({pageNotFound : 'error_404'}); // initialize
+  var app = $.spapp({ pageNotFound: 'error_404' }); // initialize
 
   // define routes
+  app.route({
+    view: 'home',
+    load: 'home.html'
+  });
 
   app.route({
-    view: 'view_template_test', 
-    load: 'templateTest.html' 
+    view: 'expenses',
+    load: 'expenses.html'
+  });
+
+  app.route({
+    view: 'income',
+    load: 'income.html'
+  });
+
+  app.route({
+    view: 'categories',
+    load: 'categories.html'
+  });
+
+  app.route({
+    view: 'accounts',
+    load: 'accounts.html'
   });
 
   // Example:
