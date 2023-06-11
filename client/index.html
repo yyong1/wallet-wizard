@@ -9,6 +9,7 @@
     <script src="js/vendor/jquery-3.7.0.slim.min.js"></script>
     <!-- CSS import -->
     <link rel="stylesheet" href="/wallet-wizard/client/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <!-- JS import -->
     <script src="js/app.js"></script>
     <script src="js/vendor/jquery-3.7.0.slim.min.js"></script>
@@ -41,9 +42,25 @@
   <script>
     $(document).ready(function() {
       $('.mobile-nav i').click(function() {
-        $('.site-nav-menu').toggleClass('active');
+        $('.site-nav-menu').toggleClass('mobile-menu');
       });
     });
   </script>
+
+  <script>
+
+const menuLinks = document.querySelectorAll('.primary-menu a');
+menuLinks.forEach(link => {
+  link.addEventListener('click', function(event) {
+    // Remove the active class from all links
+    menuLinks.forEach(link => {
+      link.classList.remove('active');
+    });
+    // Adding the active class to the clicked link
+    this.classList.add('active');
+  });
+});
+  </script>
+
 </body>
 </html>
