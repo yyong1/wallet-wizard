@@ -7,7 +7,8 @@
 
     config = $.extend({
       defaultView  : $("main#spapp > section:last-child").attr("id"),
-      templateDir  : './tpl/',
+      templateDir  : '/wallet-wizard/client/tpl/',
+      // templateDir  : 'client/assets/tpl',
       pageNotFound : false
     }, options );
 
