@@ -1,5 +1,9 @@
 <?php
 
+Flight::route('GET /connection-check', function () {
+    Flight::userService();
+});
+
 Flight::route('GET /hi', function () {
     echo "hi";
     //Flight::json(Flight::userService()->get_all());

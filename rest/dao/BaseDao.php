@@ -3,8 +3,6 @@ require_once __DIR__ . '/../config.php';
 class BaseDao
 {
     protected $conn;
-
-
     protected $table_name;
 
 
@@ -13,15 +11,21 @@ class BaseDao
      */
     public function __construct($table_name)
     {
-        $this->table_name = $table_name;
-        $host = Config::$host;
-        $username = Config::$username;
-        $password = Config::$password;
-        $schema = Config::$database;
-        $port = Config::$port;
-        $this->conn = new PDO("mysql:host=$host;port=$port;dbname=$schema", $username, $password);
-        // set the PDO error mode to exception
-        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try{
+            $this->table_name = $table_name;
+            $host = Config::DB_HOST();
+            $username = Config::DB_USERNAME();
+            $password = Config::DB_PASSWORD();
+            $schema = Config::DB_SCHEME();
+            $port = Config::DB_PORT();
+            $this->conn = new PDO("mysql:host=$host;port=$port;dbname=$schema", $username, $password);
+            // set the PDO error mode to exception
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            echo "Connected successfully";
+        } catch(PDOException $e) {
+            echo "Connection failed: " . $e->getMessage();
+          }
+        
     }
 
 
@@ -85,9 +89,7 @@ class BaseDao
             $query .= $name . "= :" . $name . ", ";
         }
         $query = substr($query, 0, -2);
-        $query .= " WHERE ${id_column} = :id";
-
-
+        $query .= " WHERE {$id_column} = :id";
         $stmt = $this->conn->prepare($query);
         $entity['id'] = $id;
         $stmt->execute($entity);
