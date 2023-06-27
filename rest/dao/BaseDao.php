@@ -14,11 +14,11 @@ class BaseDao
     public function __construct($table_name)
     {
         $this->table_name = $table_name;
-        $host = Config::$host;
-        $username = Config::$username;
-        $password = Config::$password;
-        $schema = Config::$database;
-        $port = Config::$port;
+        $host = Config::DB_HOST();
+        $username = Config::DB_USERNAME();
+        $password = Config::DB_PASSWORD();
+        $schema = Config::DB_SCHEME();
+        $port = Config::DB_PORT();
         $this->conn = new PDO("mysql:host=$host;port=$port;dbname=$schema", $username, $password);
         // set the PDO error mode to exception
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -107,7 +107,5 @@ class BaseDao
         $results = $this->query($query, $params);
         return reset($results);
     }
-
-
 }
 ?>
