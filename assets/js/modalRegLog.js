@@ -26,7 +26,7 @@ var modalElement = `
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary close-footer" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Register</button>
+          <button type="button" class="btn btn-primary btn-registration">Register</button>
         </div>
       </div>
     </div>
@@ -43,3 +43,38 @@ $("body").on("click", ".close, .close-footer", function () {
   $("#exampleModal").modal("hide");
 });
 
+function registerUser(name, email, password) {
+  $.ajax({
+    url: "your_registration_endpoint",
+    type: "POST",
+    dataType: "json",
+    data: {
+      name: name,
+      email: email,
+      password: password
+    },
+    success: function(response) {
+      // Generate JWT token
+      // Assuming the token is returned in the response
+      var token = response.token; 
+
+      localStorage.setItem("jwt_token", token);
+
+      // Redirect the user to the expenses page
+      window.location.href = "#expenses";
+    },
+    error: function(xhr, status, error) {
+      // Registration failed
+      console.error(error);
+    }
+  });
+}
+
+$("body").on("click", ".btn-registration", function () {
+  var name = $("#user-name").val();
+  var email = $("#email-name").val();
+  var password = $("#password-name").val();
+
+  // Call the registerUser function with the registration data
+  registerUser(name, email, password);
+});

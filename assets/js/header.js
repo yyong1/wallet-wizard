@@ -1,12 +1,10 @@
 $(document).ready(function () {
-   
-
     // Function to check JWT
     function isUserLoggedIn(){
         // Here you can insert code to check JWT
         // ...
         // Return true if the user is logged in, and false otherwise
-        return true;
+        return false;
     };
 
     var loggedInNavbar = `
