@@ -1,19 +1,17 @@
 <?php
 
-Flight::route('GET /connection-check', function () {
-    Flight::userService();
-});
+
 
 Flight::route('GET /hi', function () {
     echo "hi";
     //Flight::json(Flight::userService()->get_all());
 });
-Flight::route('GET /api/users', function () {
+Flight::route('GET /api/categories', function () {
     Flight::json(Flight::userService()->get_all());
 });
 
 
-Flight::route('GET /api/users/@id', function ($id) {
+Flight::route('GET /api/categories/@id', function ($id) {
     Flight::json(Flight::userService()->get_by_id($id));
 });
 
