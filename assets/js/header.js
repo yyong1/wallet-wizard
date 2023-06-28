@@ -1,9 +1,10 @@
 $(document).ready(function () {
     // Function to check JWT
     function isUserLoggedIn(){
-        // Here you can insert code to check JWT
-        // ...
-        // Return true if the user is logged in, and false otherwise
+        // Here check JWT
+        // var token = localStorage.getItem("jwt_token");
+        // return token !== null && token !== undefined;
+        
         return false;
     };
 
