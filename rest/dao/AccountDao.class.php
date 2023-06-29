@@ -2,7 +2,7 @@
 require_once __DIR__ . '/BaseDao.class.php';
 
 
-class CategoriesDao extends BaseDao
+class AccountDao extends BaseDao
 {
     public function __construct()
     {

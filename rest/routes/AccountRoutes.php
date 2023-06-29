@@ -1,7 +1,7 @@
 <?php
 
 Flight::route('GET /connection-check', function () {
-    Flight::categoriesService();
+    Flight::accountsService();
 });
 
 Flight::route('GET /hi', function () {
@@ -9,35 +9,35 @@ Flight::route('GET /hi', function () {
     //Flight::json(Flight::userService()->get_all());
 });
 Flight::route('GET /api/users', function () {
-    Flight::json(Flight::userService()->get_all());
+    Flight::json(Flight::accountsService()->get_all());
 });
 
 
 Flight::route('GET /api/users/@id', function ($id) {
-    Flight::json(Flight::userService()->get_by_id($id));
+    Flight::json(Flight::accountsService()->get_by_id($id));
 });
 
 
 Flight::route('GET /api/users/@firstName/@lastName', function ($firstName, $lastName) {
-    Flight::json(Flight::userService()->getUserByFirstNameAndLastName($firstName, $lastName));
+    Flight::json(Flight::accountsService()->getUserByFirstNameAndLastName($firstName, $lastName));
 });
 
 
 Flight::route('POST /api/users', function () {
     $data = Flight::request()->data->getData();
-    Flight::json(Flight::userService()->add($data));
+    Flight::json(Flight::accountsService()->add($data));
 });
 
 
 Flight::route('PUT /api/users/@id', function ($id) {
     $data = Flight::request()->data->getData();
-    Flight::userService()->update($id, $data);
+    Flight::accountsService()->update($id, $data);
     Flight::json(Flight::userService()->get_by_id($id));
 });
 
 
 Flight::route('DELETE /api/users/@id', function ($id) {
-    Flight::userService()->delete($id);
+    Flight::accountsService()->delete($id);
 });
 
 ?>
