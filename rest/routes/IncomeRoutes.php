@@ -4,38 +4,38 @@
 
 Flight::route('GET /hi', function () {
     echo "hi";
-    //Flight::json(Flight::userService()->get_all());
+    //Flight::json(Flight::incomeService()->get_all());
 });
-Flight::route('GET /api/users', function () {
-    Flight::json(Flight::userService()->get_all());
-});
-
-
-Flight::route('GET /api/users/@id', function ($id) {
-    Flight::json(Flight::userService()->get_by_id($id));
+Flight::route('GET /api/incomes', function () {
+    Flight::json(Flight::incomeService()->get_all());
 });
 
 
-Flight::route('GET /api/users/@firstName/@lastName', function ($firstName, $lastName) {
-    Flight::json(Flight::userService()->getUserByFirstNameAndLastName($firstName, $lastName));
+Flight::route('GET /api/incomes/@id', function ($id) {
+    Flight::json(Flight::incomeService()->get_by_id($id));
 });
 
 
-Flight::route('POST /api/users', function () {
+Flight::route('GET /api/incomes/@firstName/@lastName', function ($firstName, $lastName) {
+    Flight::json(Flight::incomeService()->getincomeByFirstNameAndLastName($firstName, $lastName));
+});
+
+
+Flight::route('POST /api/incomes', function () {
     $data = Flight::request()->data->getData();
-    Flight::json(Flight::userService()->add($data));
+    Flight::json(Flight::incomeService()->add($data));
 });
 
 
-Flight::route('PUT /api/users/@id', function ($id) {
+Flight::route('PUT /api/incomes/@id', function ($id) {
     $data = Flight::request()->data->getData();
-    Flight::userService()->update($id, $data);
-    Flight::json(Flight::userService()->get_by_id($id));
+    Flight::incomeService()->update($id, $data);
+    Flight::json(Flight::incomeService()->get_by_id($id));
 });
 
 
-Flight::route('DELETE /api/users/@id', function ($id) {
-    Flight::userService()->delete($id);
+Flight::route('DELETE /api/incomes/@id', function ($id) {
+    Flight::incomeService()->delete($id);
 });
 
 ?>
