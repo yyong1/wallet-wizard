@@ -107,4 +107,3 @@ class BaseDao
         $results = $this->query($query, $params);
         return reset($results);
     }
-
