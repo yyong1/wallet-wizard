@@ -19,7 +19,6 @@
 }
 
 body {
-    /* border-color: var(--secondary); */
     font-size: 18px;
     font-family: "Inconsolata", monospace;
 }
@@ -153,10 +152,4 @@ body {
     }
 }
 
-/* .btn-container {
-    margin-left: auto;
-    float: right;
-    width: 40%;
-    display: flex;
-    justify-content: flex-end;
-} */
+
