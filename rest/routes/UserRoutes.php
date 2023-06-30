@@ -1,7 +1,7 @@
 <?php
 
 use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
+use \Illuminate\Support\Facades\Hash;
 
 Flight::route('GET /users', function () {
     Flight::json(Flight::userService()->get_all());
@@ -11,28 +11,42 @@ Flight::route('GET /users/@id', function ($id) {
     Flight::json(Flight::userService()->get_by_id($id));
 });
 
-Flight::route('POST /user/login', function () {
+Flight::route('POST /login', function () {
     $loginData = Flight::request()->data->getData();
-    $user = Flight::usersService()->getEmail($loginData['user_email']);
-    if(isset($user['userID'])){
-      if($user['password'] == md5($loginData['password'])){
-        $user['id'] = $user['userID'];
-        unset($user['userID']);
-        unset($user['password']);
-  
+    
+    $user = Flight::usersService()->getEmail($loginData['email']);
+    
+    if ($user && Hash::check($loginData['password'], $user['Password'])) {
+        unset($user['Password']);
         $jwt = JWT::encode($user, Config::JWT_SECRET(), 'HS256');
         Flight::json(['jwt_token' => $jwt]);
-      }else{
-        Flight::json(["message"=> "Wrong password"],404);
-      }
-    }else{
-      Flight::json(array($user),404);
+    } else {
+        Flight::json(['error' => 'Wrong user data'], 401);
     }
 });
 
-Flight::route('POST /user/register', function () {
+Flight::route('POST /register', function () {
+    $registrationData = Flight::request()->data->getData();
     
+    $hashedPassword = Hash::make($registrationData['password']);
+    
+    $userId = Flight::userService()->add([
+        'Username' => $registrationData['name'],
+        'Password' => $hashedPassword,
+        'Email' => $registrationData['email']
+    ]);
+    
+    if ($userId) {
+        $user = Flight::userService()->get_by_id($userId);
+        
+        $jwt = JWT::encode($user, Config::JWT_SECRET(), 'HS256');
+        
+        Flight::json(['jwt_token' => $jwt]);
+    } else {
+        Flight::json(['error' => 'Registration failed'], 500);
+    }
 });
+
 
 Flight::route('GET /api/categories/@id', function ($id) {
     Flight::json(Flight::userService()->get_by_id($id));

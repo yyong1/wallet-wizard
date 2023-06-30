@@ -22,6 +22,10 @@ var modalElement = `
               <label for="password-name" class="col-form-label">Password:</label>
               <input type="text" class="form-control" id="password-name">
             </div>
+            <div class="form-group">
+              <label for="repeat-password-name" class="col-form-label">Repeat password:</label>
+              <input type="text" class="form-control" id="repeat-password-name">
+            </div>
           </form>
         </div>
         <div class="modal-footer">
@@ -45,7 +49,7 @@ $("body").on("click", ".close, .close-footer", function () {
 
 function registerUser(name, email, password) {
   $.ajax({
-    url: "your_registration_endpoint",
+    url: "rest/register",
     type: "POST",
     dataType: "json",
     data: {
