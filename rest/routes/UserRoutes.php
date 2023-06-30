@@ -1,5 +1,7 @@
 <?php
 
+ini_set('display_errors', 1);
+
 use Firebase\JWT\JWT;
 use \Illuminate\Support\Facades\Hash;
 

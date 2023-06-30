@@ -20,11 +20,11 @@ var modalElement = `
             </div>
             <div class="form-group">
               <label for="password-name" class="col-form-label">Password:</label>
-              <input type="text" class="form-control" id="password-name">
+              <input type="password" class="form-control" id="password-name"> <!-- Изменено на type="password" -->
             </div>
             <div class="form-group">
               <label for="repeat-password-name" class="col-form-label">Repeat password:</label>
-              <input type="text" class="form-control" id="repeat-password-name">
+              <input type="password" class="form-control" id="repeat-password-name"> <!-- Изменено на type="password" -->
             </div>
           </form>
         </div>
@@ -51,6 +51,7 @@ function registerUser(name, email, password) {
   $.ajax({
     url: "rest/register",
     type: "POST",
+    contentType: "application/json",
     dataType: "json",
     data: {
       name: name,
@@ -58,18 +59,16 @@ function registerUser(name, email, password) {
       password: password
     },
     success: function(response) {
-      // Generate JWT token
-      // Assuming the token is returned in the response
-      var token = response.token; 
+      var token = response.jwt_token;
 
       localStorage.setItem("jwt_token", token);
 
-      // Redirect the user to the expenses page
       window.location.href = "#expenses";
+
+      console.log(response, 'success register user');
     },
     error: function(xhr, status, error) {
-      // Registration failed
-      console.error(error);
+      console.error(xhr, status, error);
     }
   });
 }
@@ -78,7 +77,6 @@ $("body").on("click", ".btn-registration", function () {
   var name = $("#user-name").val();
   var email = $("#email-name").val();
   var password = $("#password-name").val();
-
-  // Call the registerUser function with the registration data
+  console.log(name, email, password);
   registerUser(name, email, password);
 });

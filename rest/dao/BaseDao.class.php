@@ -57,7 +57,31 @@ class BaseDao
         $stmt->execute();
     }
 
-
+    // public function add($entity)
+    // {
+    //     $query = "INSERT INTO " . $this->table_name . " (";
+    //     foreach ($entity as $column => $value) {
+    //         $query .= $column . ", ";
+    //     }
+    //     $query = substr($query, 0, -2);
+    //     $query .= ") VALUES (";
+    //     foreach ($entity as $column => $value) {
+    //         $query .= ":" . $column . ", ";
+    //     }
+    //     $query = substr($query, 0, -2);
+    //     $query .= ")";
+    
+    //     $stmt = $this->conn->prepare($query);
+    
+    //     foreach ($entity as $column => $value) {
+    //         $stmt->bindValue(":" . $column, $value);
+    //     }
+    
+    //     $stmt->execute();
+    
+    //     $entity['id'] = $this->conn->lastInsertId();
+    //     return $entity;
+    // }
     public function add($entity)
     {
         $query = "INSERT INTO " . $this->table_name . " (";
