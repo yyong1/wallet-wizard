@@ -77,6 +77,6 @@ $("body").on("click", ".btn-registration", function () {
   var name = $("#user-name").val();
   var email = $("#email-name").val();
   var password = $("#password-name").val();
-  console.log(name, email, password);
+  console.log(typeof name, typeof email, typeof password);
   registerUser(name, email, password);
 });

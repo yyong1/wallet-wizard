@@ -1,7 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-
 use Firebase\JWT\JWT;
 use \Illuminate\Support\Facades\Hash;
 
@@ -10,8 +8,14 @@ Flight::route('GET /users', function () {
 });
 
 Flight::route('GET /users/@id', function ($id) {
-    Flight::json(Flight::userService()->get_by_id($id));
+    $user = Flight::userService()->getUserById($id);
+    if ($user) {
+        Flight::json($user);
+    } else {
+        Flight::json(['error' => 'User not found'], 404);
+    }
 });
+
 
 Flight::route('POST /login', function () {
     $loginData = Flight::request()->data->getData();
@@ -33,13 +37,13 @@ Flight::route('POST /register', function () {
     $hashedPassword = Hash::make($registrationData['password']);
     
     $userId = Flight::userService()->add([
+        'UserID' => Flight::userService()->getMaxUserId() + 1, // to take max id from db and add increment it
         'Username' => $registrationData['name'],
         'Password' => $hashedPassword,
         'Email' => $registrationData['email']
     ]);
-    
     if ($userId) {
-        $user = Flight::userService()->get_by_id($userId);
+        $user = Flight::userService()->get_user_by_id($userId);
         
         $jwt = JWT::encode($user, Config::JWT_SECRET(), 'HS256');
         

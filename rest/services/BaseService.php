@@ -18,6 +18,11 @@ class BaseService
         return $this->dao->get_by_id($id);
     }
 
+    public function get_user_by_id($id)
+    {
+        return $this->dao->get_user_by_id($id);
+    }
+
     public function add($entity)
     {
         return $this->dao->add($entity);
@@ -35,6 +40,10 @@ class BaseService
         return $this->dao->delete($id);
     }
 
+    public function get_max_user_id()
+    {
+        return $this->dao->get_max_user_id();
+    }
 
 }
 ?>

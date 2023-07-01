@@ -18,5 +18,15 @@ class UserServices extends BaseService
     {
         return $this->dao->getUserByFirstNameAndLastName($firstName, $lastName);
     }
+
+    public function getUserById($id)
+    {
+        return $this->dao->getUserById($id);
+    }
+
+    public function getMaxUserId()
+    {
+        return $this->dao->getMaxUserId();
+    }
 }
 ?>

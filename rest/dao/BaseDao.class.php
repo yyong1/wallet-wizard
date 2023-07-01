@@ -46,7 +46,13 @@ class BaseDao
         return reset($result);
     }
 
-
+    public function get_user_by_id($id)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM " . $this->table_name . " WHERE UserID = :id");
+        $stmt->execute(['id' => $id]);
+        return  $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
     /**
      * Delete record from the database
      */
@@ -103,6 +109,13 @@ class BaseDao
         return $entity;
     }
 
+    public function get_max_user_id()
+    {
+        $stmt = $this->conn->prepare("SELECT MAX(UserID) FROM " . $this->table_name);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return reset($result);
+    }
 
     public function update($id, $entity, $id_column = "id")
     {
@@ -132,3 +145,4 @@ class BaseDao
         return reset($results);
     }
 }
+?>
