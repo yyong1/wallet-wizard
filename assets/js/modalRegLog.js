@@ -48,17 +48,21 @@ $("body").on("click", ".close, .close-footer", function () {
 });
 
 function registerUser(name, email, password) {
+  var favoriteEntity = {
+    Username: "" + name,
+    Email: "" + email,
+    Password: "" + password
+  }
+  var dataToSend = JSON.stringify(favoriteEntity);
+
+  console.log(dataToSend);
   $.ajax({
     url: "rest/register",
     type: "POST",
     contentType: "application/json",
     dataType: "json",
-    data: {
-      name: name,
-      email: email,
-      password: password
-    },
-    success: function(response) {
+    data: dataToSend,
+    success: function (response) {
       var token = response.jwt_token;
 
       localStorage.setItem("jwt_token", token);
@@ -67,8 +71,9 @@ function registerUser(name, email, password) {
 
       console.log(response, 'success register user');
     },
-    error: function(xhr, status, error) {
-      console.error(xhr, status, error);
+    error: function (xhr, status, error) {
+      console.log('reg fail');
+      console.error(error);
     }
   });
 }
@@ -77,6 +82,6 @@ $("body").on("click", ".btn-registration", function () {
   var name = $("#user-name").val();
   var email = $("#email-name").val();
   var password = $("#password-name").val();
-  console.log(typeof name, typeof email, typeof password);
+  console.log(name, email, password);
   registerUser(name, email, password);
 });

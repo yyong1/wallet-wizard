@@ -65,46 +65,36 @@ class BaseDao
 
     // public function add($entity)
     // {
-    //     $query = "INSERT INTO " . $this->table_name . " (";
-    //     foreach ($entity as $column => $value) {
-    //         $query .= $column . ", ";
-    //     }
-    //     $query = substr($query, 0, -2);
-    //     $query .= ") VALUES (";
-    //     foreach ($entity as $column => $value) {
-    //         $query .= ":" . $column . ", ";
-    //     }
-    //     $query = substr($query, 0, -2);
-    //     $query .= ")";
+    //     $query = "INSERT INTO " . $this->table_name . " (UserID, Username, Email, Password) VALUES (:UserID, :Username, :Email, :Password)";
     
     //     $stmt = $this->conn->prepare($query);
-    
-    //     foreach ($entity as $column => $value) {
-    //         $stmt->bindValue(":" . $column, $value);
-    //     }
-    
+    //     $stmt->bindParam(':UserID', $entity['UserID'], PDO::PARAM_INT);
+    //     $stmt->bindParam(':Username', $entity['Username'], PDO::PARAM_STR);
+    //     $stmt->bindParam(':Email', $entity['Email'], PDO::PARAM_STR);
+    //     $stmt->bindParam(':Password', $entity['Password'], PDO::PARAM_STR);
+        
     //     $stmt->execute();
-    
+        
     //     $entity['id'] = $this->conn->lastInsertId();
     //     return $entity;
     // }
     public function add($entity)
     {
-        $query = "INSERT INTO " . $this->table_name . " (";
-        foreach ($entity as $column => $value) {
-            $query .= $column . ", ";
+        $query = "INSERT INTO $this->table_name (";
+        foreach ($entity as $key => $value) {
+            $query .= $key . ", ";
         }
         $query = substr($query, 0, -2);
         $query .= ") VALUES (";
-        foreach ($entity as $column => $value) {
-            $query .= ":" . $column . ", ";
+        foreach ($entity as $key => $value) {
+            $query .= ":" . $key . ", ";
         }
         $query = substr($query, 0, -2);
         $query .= ")";
-
-
+ 
         $stmt = $this->conn->prepare($query);
-        $stmt->execute($entity); // sql injection prevention
+        $stmt->execute($entity); //binding to prevent injections
+ 
         $entity['id'] = $this->conn->lastInsertId();
         return $entity;
     }
@@ -113,7 +103,7 @@ class BaseDao
     {
         $stmt = $this->conn->prepare("SELECT MAX(UserID) FROM " . $this->table_name);
         $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return reset($result);
     }
 

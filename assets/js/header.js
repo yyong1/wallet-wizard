@@ -5,7 +5,7 @@ $(document).ready(function () {
         // var token = localStorage.getItem("jwt_token");
         // return token !== null && token !== undefined;
         
-        return false;
+        return true;
     };
 
     var loggedInNavbar = `
