@@ -34,21 +34,22 @@ Flight::route('POST /login', function () {
 Flight::route('POST /register', function () {
     $registrationData = Flight::request()->data->getData();
 
-    // $hashedPassword = Hash::make($registrationData['password']);
-    $idfortest = (Flight::userService()->getMaxUserId()) + 1;
-    $registrationData['UserID'] = $idfortest;
-    Flight::json(Flight::userService()->add($registrationData));
-    var_dump($registrationData);
+    $hashedPassword = md5($registrationData['Password']);
+    $userId = (Flight::userService()->getMaxUserId()) + 1;
+    $registrationData['UserID'] = $userId;
+    $registrationData['Password'] = $hashedPassword;
 
-    // if ($userId) {
-    //     $user = Flight::userService()->get_user_by_id($userId);
+    $user = Flight::userService()->add($registrationData);
+
+    if ($user) {
+        $userForFront = Flight::userService()->get_user_by_id($user['UserID']);
         
-    //     $jwt = JWT::encode($user, Config::JWT_SECRET(), 'HS256');
+        $jwt = JWT::encode($userForFront, Config::JWT_SECRET(), 'HS256');
         
-    //     Flight::json(['jwt_token' => $jwt]);
-    // } else {
-    //     Flight::json(['error' => 'Registration failed'], 500);
-    // }
+        Flight::json(['jwt_token' => $jwt]);
+    } else {
+        Flight::json(['error' => 'Registration failed'], 500);
+    }
 });
 
 
