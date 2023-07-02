@@ -7,7 +7,7 @@ class Config
     }
     // public static $host = '127.0.0.1';
     public static function DB_SCHEME(){
-        return Config::get_env('DB_SCHEME', '');
+        return Config::get_env('DB_SCHEME', 'webprojectbase');
     }
     // public static $database = 'web-project-base';
     public static function DB_USERNAME(){

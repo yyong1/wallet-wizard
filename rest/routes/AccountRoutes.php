@@ -1,8 +1,6 @@
 <?php
 
-Flight::route('GET /connection-check', function () {
-    Flight::categoriesService();
-});
+
 
 Flight::route('GET /hi', function () {
     echo "hi";

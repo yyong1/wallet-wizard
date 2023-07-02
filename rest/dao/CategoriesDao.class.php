@@ -9,5 +9,15 @@ class CategoriesDao extends BaseDao
         parent::__construct("category");
     }
 
+    public function get_categories_with_user_by_id($id){
+        $stmt = $this->conn->prepare(
+            "SELECT c.CategoryName, sub.SubCategoryName 
+            FROM category c
+            JOIN subcategory sub on c.CategoryID=sub.CategoryID
+            WHERE UserID=:id AND Expenses=1"
+        );
+        $stmt->execute(['id' => $id]); //prevents an SQL injection **binding the parameter
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

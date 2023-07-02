@@ -6,12 +6,12 @@ Flight::route('GET /hi', function () {
     echo "hi";
     //Flight::json(Flight::userService()->get_all());
 });
-Flight::route('GET /api/categories', function () {
+Flight::route('GET /users', function () {
     Flight::json(Flight::userService()->get_all());
 });
 
 
-Flight::route('GET /api/categories/@id', function ($id) {
+Flight::route('GET /users/@id', function ($id) {
     Flight::json(Flight::userService()->get_by_id($id));
 });
 
