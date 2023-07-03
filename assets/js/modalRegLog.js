@@ -1,4 +1,4 @@
-var isSignUp = true; // Измените значение переменной в зависимости от сценария
+var isSignUp = true;
 
 var modalElement = `
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -36,7 +36,7 @@ var modalElement = `
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary close-footer" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary btn-action">${isSignUp ? 'Register' : 'Login'}</button>
+          <button type="button" class="btn btn-primary btn-action">${isSignUp ? `Register` : `Login`}</button>
         </div>
       </div>
     </div>
@@ -45,19 +45,31 @@ var modalElement = `
 
 $("body").append(modalElement);
 
+function updateModalContent() {
+  var modalTitle = isSignUp ? 'Registration' : 'Login';
+  var modalButton = isSignUp ? 'Register' : 'Login';
+
+  $("#exampleModalLabel").text(modalTitle);
+  $(".btn-action").text(modalButton);
+
+  if (isSignUp) {
+    $("#user-name").parent().show();
+    $("#repeat-password-name").parent().show();
+  } else {
+    $("#user-name").parent().hide();
+    $("#repeat-password-name").parent().hide();
+  }
+}
+
 $("body").on("click", ".home-btn-start, .btn-header-signup", function () {
   isSignUp = true;
-  $("#exampleModalLabel").text("Registration");
-  $("#user-name").parent().show();
-  $("#repeat-password-name").parent().show();
+  updateModalContent();
   $("#exampleModal").modal("show");
 });
 
 $("body").on("click", ".btn-header-login", function () {
   isSignUp = false;
-  $("#exampleModalLabel").text("Login");
-  $("#user-name").parent().hide();
-  $("#repeat-password-name").parent().hide();
+  updateModalContent();
   $("#exampleModal").modal("show");
 });
 
@@ -73,7 +85,6 @@ function performAction() {
   if (isSignUp) {
     var repeatPassword = $("#repeat-password-name").val();
 
-    // Проверка на соответствие паролей
     if (password !== repeatPassword) {
       alert("Passwords do not match");
       return;
