@@ -9,9 +9,9 @@ class UserServices extends BaseService
         parent::__construct(new UserDao);
     }
 
-    function getMail($email)
+    function getEmail($email)
     {
-        return $this->dao->getEmail($email);
+        return $this->dao->get_email($email);
     }
 
     function getUserByFirstNameAndLastName($firstName, $lastName)

@@ -20,24 +20,29 @@ Flight::route('GET /users/@id', function ($id) {
 Flight::route('POST /login', function () {
     $loginData = Flight::request()->data->getData();
 
-    $user = Flight::usersService()->getEmail($loginData['email']);
+    $user = Flight::userService()->getEmail($loginData['Email']);
 
-    if ($user && md5($loginData['password']) === $user['Password']) {
-        unset($user['Password']);
-        
-        $jwtPayload = [
-            'user_id' => $user['UserID'],
-            'email' => $user['Email'],
-            'username' => $user['Username']
-            // Add any other relevant data to the payload
-        ];
-        
-        $jwt = JWT::encode($jwtPayload, Config::JWT_SECRET(), 'HS256');
-        Flight::json(['jwt_token' => $jwt]);
+    if ($user) {
+        if (md5($loginData['Password']) === $user['Password']) {
+            unset($user['Password']);
+
+            $jwtPayload = [
+                'UserID' => $user['UserID'],
+                'Email' => $user['Email'],
+                'Username' => $user['Username']
+                // Add any other relevant data to the payload
+            ];
+
+            $jwt = JWT::encode($jwtPayload, Config::JWT_SECRET(), 'HS256');
+            Flight::json(['jwt_token' => $jwt]);
+        } else {
+            Flight::json(['error' => 'Wrong password'], 401);
+        }
     } else {
-        Flight::json(['error' => 'Wrong user data'], 401);
+        Flight::json(['error' => 'User not found'], 404);
     }
 });
+
 
 
 Flight::route('POST /register', function () {

@@ -9,10 +9,10 @@ class UserDao extends BaseDao
         parent::__construct("user");
     }
 
-    public function getEmail($email)
+    public function get_email($email)
     {
-        return $this->query_unique("SELECT * FROM users WHERE email= :email", ['email' => $email]);
-    }
+        return $this->query_unique("SELECT * FROM " . $this->table_name . " WHERE Email = :email", ['email' => $email]);
+    }    
 
     function getUserByFirstNameAndLastName($firstName, $lastName)
     {
