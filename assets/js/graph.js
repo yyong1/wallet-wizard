@@ -75,7 +75,7 @@ var config = {
     },
     options: {
         legend: {
-            position: 'left'
+            position: 'top'
         },
         responsive: false
     }
