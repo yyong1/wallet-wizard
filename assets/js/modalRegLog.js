@@ -115,8 +115,8 @@ function registerUser(name, email, password) {
       var token = response.jwt_token;
 
       localStorage.setItem("jwt_token", token);
-
-      window.location.href = "#expenses";
+      updateNavbar();
+      window.location.href = "#income";
 
       console.log(response, "success register user");
     },
@@ -145,8 +145,8 @@ function loginUser(email, password) {
       var token = response.jwt_token;
 
       localStorage.setItem("jwt_token", token);
-
-      window.location.href = "#expenses";
+      updateNavbar();
+      window.location.href = "#income";
 
       console.log(response, "success login user");
     },
