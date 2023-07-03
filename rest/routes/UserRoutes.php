@@ -66,8 +66,7 @@ Flight::route('POST /register', function () {
     }
 });
 
-
-Flight::route('GET /api/categories/@id', function ($id) {
+Flight::route('GET /users/@id', function ($id) {
     Flight::json(Flight::userService()->get_by_id($id));
 });
 

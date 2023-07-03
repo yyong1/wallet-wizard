@@ -4,38 +4,38 @@
 
 Flight::route('GET /hi', function () {
     echo "hi";
-    //Flight::json(Flight::userService()->get_all());
+    //Flight::json(Flight::subcategoryService()->get_all());
 });
-Flight::route('GET /api/users', function () {
-    Flight::json(Flight::userService()->get_all());
-});
-
-
-Flight::route('GET /api/users/@id', function ($id) {
-    Flight::json(Flight::userService()->get_by_id($id));
+Flight::route('GET /api/subcategorys', function () {
+    Flight::json(Flight::subcategoryService()->get_all());
 });
 
 
-Flight::route('GET /api/users/@firstName/@lastName', function ($firstName, $lastName) {
-    Flight::json(Flight::userService()->getUserByFirstNameAndLastName($firstName, $lastName));
+Flight::route('GET /api/subcategorys/@id', function ($id) {
+    Flight::json(Flight::subcategoryService()->get_by_id($id));
 });
 
 
-Flight::route('POST /api/users', function () {
+Flight::route('GET /api/subcategorys/@firstName/@lastName', function ($firstName, $lastName) {
+    Flight::json(Flight::subcategoryService()->getsubcategoryByFirstNameAndLastName($firstName, $lastName));
+});
+
+
+Flight::route('POST /api/subcategorys', function () {
     $data = Flight::request()->data->getData();
-    Flight::json(Flight::userService()->add($data));
+    Flight::json(Flight::subcategoryService()->add($data));
 });
 
 
-Flight::route('PUT /api/users/@id', function ($id) {
+Flight::route('PUT /api/subcategorys/@id', function ($id) {
     $data = Flight::request()->data->getData();
-    Flight::userService()->update($id, $data);
-    Flight::json(Flight::userService()->get_by_id($id));
+    Flight::subcategoryService()->update($id, $data);
+    Flight::json(Flight::subcategoryService()->get_by_id($id));
 });
 
 
-Flight::route('DELETE /api/users/@id', function ($id) {
-    Flight::userService()->delete($id);
+Flight::route('DELETE /api/subcategorys/@id', function ($id) {
+    Flight::subcategoryService()->delete($id);
 });
 
 ?>

@@ -150,6 +150,10 @@ body {
     .primary-menu li a:after {
         display: none;
     }
+
+    .categories-list{
+        border: solid red 30px;
+    }
 }
 
 

@@ -8,5 +8,25 @@ class CategoriesServices extends BaseService
     {
         parent::__construct(new CategoriesDao);
     }
+
+    public function get_categories_with_user_by_id($id)
+    {
+        $categories = $this->dao->get_categories_with_user_by_id($id);
+
+        $result = array();
+
+        foreach ($categories as $item) {
+            $categoryName = $item['CategoryName'];
+            $subCategoryName = $item['SubCategoryName'];
+            
+            if (!isset($result[$categoryName])) {
+                $result[$categoryName] = array();
+            }
+            
+            $result[$categoryName][] = $subCategoryName;
+        }
+        
+        return $result;
+    }
 }
 ?>

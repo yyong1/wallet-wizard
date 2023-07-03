@@ -5,7 +5,7 @@ function updateNavbar() {
       <ul class="primary-menu">
           <li><a href="#expenses" class="">Expenses</a></li>
           <li><a href="#income" class="">Income</a></li>
-          <li><a href="#categories" class="">Categories</a></li>
+          <li><a href="#categories" onclick="categories.getcategories()"   class="">Categories</a></li>
           <li><a href="#accounts" class="">Accounts</a></li>
           <button type="button" class="btn btn-secondary btn-header-logout">Log out</button>
       </ul>
