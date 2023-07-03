@@ -19,17 +19,26 @@ Flight::route('GET /users/@id', function ($id) {
 
 Flight::route('POST /login', function () {
     $loginData = Flight::request()->data->getData();
-    
+
     $user = Flight::usersService()->getEmail($loginData['email']);
-    
-    if ($user && Hash::check($loginData['password'], $user['Password'])) {
+
+    if ($user && md5($loginData['password']) === $user['Password']) {
         unset($user['Password']);
-        $jwt = JWT::encode($user, Config::JWT_SECRET(), 'HS256');
+        
+        $jwtPayload = [
+            'user_id' => $user['UserID'],
+            'email' => $user['Email'],
+            'username' => $user['Username']
+            // Add any other relevant data to the payload
+        ];
+        
+        $jwt = JWT::encode($jwtPayload, Config::JWT_SECRET(), 'HS256');
         Flight::json(['jwt_token' => $jwt]);
     } else {
         Flight::json(['error' => 'Wrong user data'], 401);
     }
 });
+
 
 Flight::route('POST /register', function () {
     $registrationData = Flight::request()->data->getData();
@@ -43,7 +52,7 @@ Flight::route('POST /register', function () {
 
     if ($user) {
         $userForFront = Flight::userService()->get_user_by_id($user['UserID']);
-        
+        unset($userForFront['Password']);
         $jwt = JWT::encode($userForFront, Config::JWT_SECRET(), 'HS256');
         
         Flight::json(['jwt_token' => $jwt]);

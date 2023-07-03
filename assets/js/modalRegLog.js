@@ -1,4 +1,4 @@
-var modalElement = `
+var modalElementRegistration = `
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -37,9 +37,48 @@ var modalElement = `
   </div>
 `;
 
-$("body").append(modalElement);
+var modalElementLogin = `
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Registration</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="user-name" class="col-form-label">Name:</label>
+              <input type="text" class="form-control" id="user-name">
+            </div>
+            <div class="form-group">
+              <label for="email-name" class="col-form-label">Email:</label>
+              <input type="text" class="form-control" id="email-name">
+            </div>
+            <div class="form-group">
+              <label for="password-name" class="col-form-label">Password:</label>
+              <input type="password" class="form-control" id="password-name"> <!-- Изменено на type="password" -->
+            </div>
+            <div class="form-group">
+              <label for="repeat-password-name" class="col-form-label">Repeat password:</label>
+              <input type="password" class="form-control" id="repeat-password-name"> <!-- Изменено на type="password" -->
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary close-footer" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary btn-registration">Register</button>
+        </div>
+      </div>
+    </div>
+  </div>
+`;
 
-$("body").on("click", ".home-btn-start", function () {
+$("body").append(modalElementRegistration);
+
+$("body").on("click", ".home-btn-start, .btn-header-signup", function () {
   $("#exampleModal").modal("show");
 });
 

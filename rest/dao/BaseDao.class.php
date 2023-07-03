@@ -63,21 +63,6 @@ class BaseDao
         $stmt->execute();
     }
 
-    // public function add($entity)
-    // {
-    //     $query = "INSERT INTO " . $this->table_name . " (UserID, Username, Email, Password) VALUES (:UserID, :Username, :Email, :Password)";
-    
-    //     $stmt = $this->conn->prepare($query);
-    //     $stmt->bindParam(':UserID', $entity['UserID'], PDO::PARAM_INT);
-    //     $stmt->bindParam(':Username', $entity['Username'], PDO::PARAM_STR);
-    //     $stmt->bindParam(':Email', $entity['Email'], PDO::PARAM_STR);
-    //     $stmt->bindParam(':Password', $entity['Password'], PDO::PARAM_STR);
-        
-    //     $stmt->execute();
-        
-    //     $entity['id'] = $this->conn->lastInsertId();
-    //     return $entity;
-    // }
     public function add($entity)
     {
         $query = "INSERT INTO $this->table_name (";
