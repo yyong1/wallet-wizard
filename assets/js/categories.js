@@ -37,20 +37,6 @@ var categories = {
                     categoriesHtml += list;
 
             }
-        
-            /*for (var i = 0; i < wholeArraySize; i++) {
-                console.log(data);
-                for(var j = 0; j<subcategoriesSizes; j++){
-                    
-                    var list = "";
-                    list = `<li>${data[i].CategoryName}
-                                <ul>
-                                    
-                                </ul>
-                            </li>`;
-                    categoriesHtml += list;
-                }
-            }*/
             $("#categories-list").html(categoriesHtml);
         });
     }
