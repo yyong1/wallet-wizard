@@ -224,9 +224,6 @@ body {
     padding: 2px 16px;
 }
 
-
-/* 
-
 /* Pie chart css */
 .topleft {
   margin-top: -4px;
@@ -239,20 +236,10 @@ body {
 canvas {
 width: 100% !important;
 height: auto !important;
-/* margin-left: -25%; */
 }
 
-/* .chart {
-
-width: 100%;
-overflow: hidden;
-position: relative;
-} */
-
 .pie {
-/* position: relative; */
 padding: 10px 0;
-/* // adjust as necessary */
 padding-left: 10px;
 padding-right: 0;
 }
