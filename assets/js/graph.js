@@ -20,34 +20,24 @@ function getPieChartData() {
 //Current used data structure for the piechart
 var jsonfile = {
     "jsonarray": [{
-        "type": "Declined",
+        "type": "Food",
         "value": 124
     }, {
-        "type": "Authorisation approved",
+        "type": "Utilities",
         "value": 143
     }, {
-        "type": "Authorisation declined",
+        "type": "Housing",
         "value": 172
     }, {
-        "type": "Capture approved",
+        "type": "Hobbies",
         "value": 180
     }, {
-        "type": "Capture declined",
+        "type": "Taxes",
         "value": 100
     }, {
-        "type": "Payment approved",
+        "type": "Transportation",
         "value": 160
-    }, {
-        "type": "Payment declined",
-        "value": 50
-    }, {
-        "type": "Payment requested approved",
-        "value": 60
-    }, {
-        "type": "Payment requested declined",
-        "value": 50
-    }
-    ]
+    }]
 };
 
 var labels = jsonfile.jsonarray.map(function (e) {

@@ -8,5 +8,8 @@ class ExpensesServices extends BaseService
     {
         parent::__construct(new ExpensesDao);
     }
+    public function get_expenses_with_user_by_id($id){
+        return $this->dao->get_expenses_with_user_by_id($id);
+    }
 }
 ?>
