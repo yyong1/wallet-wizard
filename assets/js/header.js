@@ -2,16 +2,12 @@ $(document).ready(function () {
     // Function to check JWT
     function isUserLoggedIn(){
         // Here check JWT
-
         var token = localStorage.getItem("jwt_token");
         return token !== null && token !== undefined;
-        
-        // return true;
     };
 
     var loggedInNavbar = `
         <ul class="primary-menu">
-            <li><a href="#home" class="active">Home</a></li>
             <li><a href="#expenses" class="">Expenses</a></li>
             <li><a href="#income" class="">Income</a></li>
             <li><a href="#categories" class="">Categories</a></li>
