@@ -8,5 +8,9 @@ class IncomeServices extends BaseService
     {
         parent::__construct(new IncomeDao);
     }
+    public function get_income_with_user_by_id($id){
+        $expenses = $this->dao->get_income_with_user_by_id($id);
+        return $expenses;
+    }
 }
 ?>

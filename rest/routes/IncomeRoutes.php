@@ -38,4 +38,8 @@ Flight::route('DELETE /api/incomes/@id', function ($id) {
     Flight::incomeService()->delete($id);
 });
 
+
+Flight::route('GET /incomes/@id', function ($id) {
+    Flight::json(Flight::incomeService()->get_income_with_user_by_id($id));
+});
 ?>
