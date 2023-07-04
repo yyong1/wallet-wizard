@@ -11,17 +11,12 @@ Flight::route('GET /api/incomes', function () {
 });
 
 
-Flight::route('GET /api/incomes/@id', function ($id) {
-    Flight::json(Flight::incomeService()->get_by_id($id));
+Flight::route('GET /incomes/@id', function ($id) {
+    Flight::json(Flight::incomeService()->get_income_with_user_by_id($id));
 });
 
 
-Flight::route('GET /api/incomes/@firstName/@lastName', function ($firstName, $lastName) {
-    Flight::json(Flight::incomeService()->getincomeByFirstNameAndLastName($firstName, $lastName));
-});
-
-
-Flight::route('POST /api/incomes', function () {
+Flight::route('POST /incomes', function () {
     $data = Flight::request()->data->getData();
     Flight::json(Flight::incomeService()->add($data));
 });

@@ -20,5 +20,20 @@ class CategoriesDao extends BaseDao
         $stmt->execute(['id' => $id]); //prevents an SQL injection **binding the parameter
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    public function add($entity){
+        $columns = implode(", ", array_keys($entity));
+        $placeholders = ":" . implode(", :", array_keys($entity));
+
+        $query = "INSERT INTO category ($columns) VALUES ($placeholders)";
+    
+        $stmt = $this->conn->prepare($query);
+        var_dump($entity);
+        $stmt->execute($entity); // binding the values to prevent injections
+    
+        $entity['id'] = $this->conn->lastInsertId();
+        return $entity;
+    }
+
 }
 ?>

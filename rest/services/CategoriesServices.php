@@ -28,5 +28,10 @@ class CategoriesServices extends BaseService
         
         return $result;
     }
+    public function add($entity)
+    {   
+        return $this->dao->add($entity);
+    }
+
 }
 ?>
