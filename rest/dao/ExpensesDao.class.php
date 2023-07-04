@@ -20,5 +20,18 @@ class ExpensesDao extends BaseDao
         $stmt->execute(['id' => $id]); //prevents an SQL injection **binding the parameter
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function get_expenses_for_graph($id){
+        $stmt = $this->conn->prepare(
+            "SELECT cat.CategoryName as 'type', SUM(ex.Amount) as 'value'
+            FROM category cat
+            JOIN expense ex on cat.CategoryID=ex.CategoryID
+            WHERE ex.UserID=:id
+            GROUP BY cat.CategoryName"
+        );
+        $stmt->execute(['id' => $id]); //prevents an SQL injection **binding the parameter
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
 }
 ?>
