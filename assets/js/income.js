@@ -12,22 +12,22 @@ var income = {
                 var income = data[i];
                 sum += parseFloat(income.Amount);
                 var list = "";
-                list =
+                list =`
                     <tr>
                         <th scope="row">${income.CategoryName}</th>
                         <td>${income.SubCategoryName}</td>
                         <td>${income.Amount}$</td>
-                    </tr>
+                    </tr>`
                 incomeHtml += list;
             }
             sum = sum.toString();
             var totalRow = "";
             totalRow =
-                <tr>
+                `<tr>
                     <th scope="row">---</th>
                     <td>TOTAL AMOUNT</td>
                     <td>${sum}$</td>
-                </tr>
+                </tr>`
             incomeHtml += totalRow;
 
 

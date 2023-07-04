@@ -11,8 +11,8 @@ Flight::route('GET /api/incomes', function () {
 });
 
 
-Flight::route('GET /api/incomes/@id', function ($id) {
-    Flight::json(Flight::incomeService()->get_by_id($id));
+Flight::route('GET /incomes/@id', function ($id) {
+    Flight::json(Flight::incomeService()->get_income_with_user_by_id($id));
 });
 
 

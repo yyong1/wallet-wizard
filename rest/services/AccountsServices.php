@@ -8,6 +8,9 @@ class AccountsServices extends BaseService
     {
         parent::__construct(new AccountDao);
     }
-
+    public function get_account_with_user_by_id($id){
+        $accounts = $this->dao->get_account_with_user_by_id($id);
+        return $accounts;
+    }
 }
 ?>

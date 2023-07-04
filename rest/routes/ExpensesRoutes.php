@@ -1,6 +1,6 @@
 <?php
 
-Flight::route('DELETE /api/expenses/@id', function ($id) {
+Flight::route('DELETE /expenses/@id', function ($id) {
     Flight::expensesService()->delete($id);
 });
 

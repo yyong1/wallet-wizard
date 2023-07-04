@@ -243,3 +243,8 @@ padding: 10px 0;
 padding-left: 10px;
 padding-right: 0;
 }
+
+.card-for-data {
+    /* Other styles */
+    overflow-y: auto; /* Enable vertical scrolling if needed */
+}

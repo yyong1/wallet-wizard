@@ -15,6 +15,10 @@ Flight::route('GET /api/accountss/@id', function ($id) {
     Flight::json(Flight::accountsService()->get_by_id($id));
 });
 
+Flight::route('GET /accounts/@id', function ($id) {
+    Flight::json(Flight::accountsService()->get_account_with_user_by_id($id));
+});
+
 
 Flight::route('GET /api/accountss/@firstName/@lastName', function ($firstName, $lastName) {
     Flight::json(Flight::accountsService()->getaccountsByFirstNameAndLastName($firstName, $lastName));

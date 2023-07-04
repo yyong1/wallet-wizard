@@ -1,12 +1,12 @@
 var expenses = {
     getexpenses: function () {
-        var token = localStorage.getItem('jwt_token');
+        /*var token = localStorage.getItem('jwt_token');
         var decodedToken = jwt_decode(token); // !!!!!!!!!!!!!!!
-        var id = decodedToken.UserId;
-
+        //var id = decodedToken.UserId;//myb this is wrong*/
+        var id=5;
 
         $.get('rest/expenses/' + id, function (data) {
-            console.log("Size of data:", data.length);
+            //console.log("data:", data);
             var expensesHtml = "";
             //this is my new branch expenses
             var sum = 0;
@@ -29,7 +29,7 @@ var expenses = {
                             <strong class="text-gray-dark">${expense.CategoryName}</strong>
                             <strong class="text-gray-dark">${expense.Amount}</strong>
                 
-                            {/* <a href="#">Follow</a> */}
+                            
                         </div>
                         <span class="d-block">${expense.SubCategoryName}</span>
                     </div>

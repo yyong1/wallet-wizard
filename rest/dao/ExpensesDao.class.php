@@ -23,7 +23,7 @@ class ExpensesDao extends BaseDao
 
     public function get_expenses_for_graph($id){
         $stmt = $this->conn->prepare(
-            "SELECT cat.CategoryName as 'type', SUM(ex.Amount) as 'value'
+            "SELECT cat.CategoryName as 'CategoryName', SUM(ex.Amount) as 'Amount'
             FROM category cat
             JOIN expense ex on cat.CategoryID=ex.CategoryID
             WHERE ex.UserID=:id
