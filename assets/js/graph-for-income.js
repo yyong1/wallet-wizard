@@ -4,13 +4,13 @@ var labels = [];
 
 function getPieChartData() {
     $.ajax({
-        url: 'rest/expenses_for_graph/5',
+        url: 'rest/incomes_for_graph/5',
         type: 'GET',
         contentType: "application/json",
         dataType: "json",
 
         success: function (response) {
-            console.log("response:", response);
+            //console.log("response:", response);
             jsonfile = {
                 "jsonarray": response.map(function (item) {
                     return {
@@ -19,7 +19,7 @@ function getPieChartData() {
                     };
                 })
             };
-            console.log("jsonfile:", jsonfile);
+            //console.log("jsonfile:", jsonfile);
 
             // Update data and labels arrays
             data = jsonfile.jsonarray.map(function (e) {
@@ -41,7 +41,7 @@ function getPieChartData() {
     });
 }
 
-$("body").on("click", "#expenses-header", function () {
+$("body").on("click", "#income-header", function () {
     getPieChartData();
 });
 
@@ -82,6 +82,6 @@ function createPieChart() {
     };
 
     // Create the pie chart
-    var ctx = document.getElementById("chart-area").getContext("2d");
+    var ctx = document.getElementById("chart-area-income").getContext("2d");
     window.myPie = new Chart(ctx, config);
 }

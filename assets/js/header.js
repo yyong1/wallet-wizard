@@ -3,8 +3,8 @@ function updateNavbar() {
   if (isUserLoggedIn()) {
     navbar = `
       <ul class="primary-menu">
-          <li><a href="#expenses" onclick="expenses.getexpenses()"    class="">Expenses</a></li>
-          <li><a href="#income" class="">Income</a></li>
+          <li><a id="expenses-header"  href="#expenses" onclick="expenses.getexpenses()"    class="">Expenses</a></li>
+          <li><a href="#income" onclick="incomes.getincomes()" class="">Income</a></li>
           <li><a href="#categories" onclick="categories.getcategories()"   class="">Categories</a></li>
           <li><a href="#accounts" onclick="accounts.getaccounts()"    class="">Accounts</a></li>
           <button type="button" class="btn btn-secondary btn-header-logout">Log out</button>

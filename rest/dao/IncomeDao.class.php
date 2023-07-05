@@ -20,5 +20,17 @@ class IncomeDao extends BaseDao
         $stmt->execute(['id' => $id]); //prevents an SQL injection **binding the parameter
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function get_incomes_for_graph($id){
+        $stmt = $this->conn->prepare(
+            "SELECT cat.CategoryName as 'CategoryName', SUM(inc.Amount) as 'Amount'
+            FROM category cat
+            JOIN income inc on cat.CategoryID=inc.CategoryID
+            WHERE inc.UserID=:id
+            GROUP BY cat.CategoryName"
+        );
+        $stmt->execute(['id' => $id]); //prevents an SQL injection **binding the parameter
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

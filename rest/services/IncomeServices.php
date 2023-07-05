@@ -12,5 +12,10 @@ class IncomeServices extends BaseService
         $expenses = $this->dao->get_income_with_user_by_id($id);
         return $expenses;
     }
+
+    public function get_incomes_for_graph($id){
+        $expenses = $this->dao->get_incomes_for_graph($id);
+        return $expenses;
+    }
 }
 ?>

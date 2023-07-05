@@ -16,7 +16,7 @@ class Config
     }
     // public static $username = 'root';
     public static function DB_PASSWORD(){
-        return Config::get_env('DB_PASSWORD', '');
+        return Config::get_env('DB_PASSWORD', '123');
     }
     // public static $password = '123';
     public static function DB_PORT()
