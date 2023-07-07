@@ -118,7 +118,7 @@ function registerUser(name, email, password) {
       updateNavbar();
       window.location.href = "#income";
       $("#exampleModal").modal("hide"); 
-      toastr.success("Reg");
+      toastr.success("Registred successfully");
       console.log(response, "success register user");
     },
     error: function (xhr, status, error) {
@@ -153,7 +153,7 @@ function loginUser(email, password) {
       updateNavbar();
       window.location.href = "#income";
       $("#exampleModal").modal("hide");
-      toastr.success("Reg");
+      toastr.success("Loged in successfully");
       console.log(response, "success login user");
     },
     error: function (xhr, status, error) {

@@ -25,7 +25,7 @@ var incomes = {
 
     getincomes: function () {
         console.log("token in log", incomes.getCurrentUserId());
-
+        // need to replace to get current user id
         var id = 5;
 
         $.get('rest/incomes/' + id, function (data) {
