@@ -41,7 +41,7 @@ function getPieChartData() {
     });
 }
 
-$("body").on("click", "#income-header", function () {
+$("#income-header").on("click", function () {
     getPieChartData();
 });
 

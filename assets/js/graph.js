@@ -41,7 +41,7 @@ function getPieChartData() {
     });
 }
 
-$("body").on("click", "#expenses-header", function () {
+$("#expenses-header").on("click",  function () {
     getPieChartData();
 });
 
