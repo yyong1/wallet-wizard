@@ -1,9 +1,32 @@
 var incomes = {
+    parseJwt: function(token){
+        if (token) {
+            var base64Url = token.split(".")[1];
+            var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+            var jsonPayload = decodeURIComponent(
+                atob(base64)
+                    .split("")
+                    .map(function (c) {
+                        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+                    })
+                    .join("")
+            );
+            return JSON.parse(jsonPayload);
+        } else {
+            return null;
+        }
+    },
+
+    getCurrentUserId: function(){
+        var token = localStorage.getItem("jwt_token");
+        var user = incomes.parseJwt(token);
+        return parseInt(user[0].UserID);
+    },
+
     getincomes: function () {
-        /*var token = localStorage.getItem('jwt_token');
-        var decodedToken = jwt_decode(token); // !!!!!!!!!!!!!!!
-        //var id = decodedToken.UserId;//myb this is wrong*/
-        var id=5;
+        console.log("token in log", incomes.getCurrentUserId());
+
+        var id = 5;
 
         $.get('rest/incomes/' + id, function (data) {
             //console.log("data:", data);
