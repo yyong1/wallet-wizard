@@ -11,32 +11,32 @@ var modalElement = `
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <form id="login-form">
             ${isSignUp ? `
             <div class="form-group">
               <label for="user-name" class="col-form-label">Name:</label>
-              <input type="text" class="form-control" id="user-name">
+              <input type="text" class="form-control" id="user-name" required>
             </div>
             ` : ''}
             <div class="form-group">
               <label for="email-name" class="col-form-label">Email:</label>
-              <input type="text" class="form-control" id="email-name">
+              <input type="email" class="form-control" id="email-name" required>
             </div>
             <div class="form-group">
               <label for="password-name" class="col-form-label">Password:</label>
-              <input type="password" class="form-control" id="password-name">
+              <input type="password" class="form-control" id="password-name" required>
             </div>
             ${isSignUp ? `
             <div class="form-group">
               <label for="repeat-password-name" class="col-form-label">Repeat password:</label>
-              <input type="password" class="form-control" id="repeat-password-name">
+              <input type="password" class="form-control" id="repeat-password-name" required>
             </div>
             ` : ''}
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary close-footer" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary btn-action">${isSignUp ? `Register` : `Login`}</button>
+          <button type="submit" form="login-form" class="btn btn-primary btn-action">${isSignUp ? `Register` : `Login`}</button>
         </div>
       </div>
     </div>
@@ -75,6 +75,29 @@ $("body").on("click", ".btn-header-login", function () {
 
 $("body").on("click", ".close, .close-footer", function () {
   $("#exampleModal").modal("hide");
+});
+
+$("#login-form").validate({
+  rules: {
+    email: {
+      required: true,
+      email: true
+    },
+    password: {
+      required: true
+    },
+    repeat_password: {
+      required: true,
+      equalTo: "#password-name"
+    }
+  },
+  messages: {
+    email: "Enter a valid email address",
+    repeat_password: "Passwords do not match"
+  },
+  submitHandler: function(form) {
+    performAction();
+  }
 });
 
 function performAction() {
