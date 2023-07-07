@@ -24,7 +24,7 @@ var modalElement = `
             </div>
             <div class="form-group">
               <label for="password-name" class="col-form-label">Password:</label>
-              <input type="password" class="form-control" id="password-name" required>
+              <input type="password" class="form-control" id="password-name" required minlength="8" maxlength="16">
             </div>
             ${isSignUp ? `
             <div class="form-group">
@@ -84,16 +84,26 @@ $("#login-form").validate({
       email: true
     },
     password: {
-      required: true
+      required: true,
+      minlength: 8,
+      maxlength: 16
     },
     repeat_password: {
-      required: true,
+      required: isSignUp,
       equalTo: "#password-name"
     }
   },
   messages: {
     email: "Enter a valid email address",
-    repeat_password: "Passwords do not match"
+    password: {
+      required: "Enter a password",
+      minlength: "Password must be at least 8 characters long",
+      maxlength: "Password must not exceed 16 characters"
+    },
+    repeat_password: {
+      required: "Repeat your password",
+      equalTo: "Passwords do not match"
+    }
   },
   submitHandler: function(form) {
     performAction();
