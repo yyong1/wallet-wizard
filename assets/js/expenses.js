@@ -1,9 +1,9 @@
 var expenses = {
     getexpenses: function () {
-        /*var token = localStorage.getItem('jwt_token');
-        var decodedToken = jwt_decode(token); // !!!!!!!!!!!!!!!
-        //var id = decodedToken.UserId;//myb this is wrong*/
-        var id=5;
+        // get current user id
+        let idForFutureUse = utils.getCurrentUserId();
+        console.log("current id taken from utils - ", idForFutureUse);
+        var id = 5;
 
         $.get('rest/expenses/' + id, function (data) {
             //console.log("data:", data);
@@ -16,12 +16,6 @@ var expenses = {
                 sum += parseFloat(expense.Amount);
                 var list = "";
                 list =
-                    // <tr>
-                    //     <th scope="row">${expense.CategoryName}</th>
-                    //     <td>${expense.SubCategoryName}</td>
-                    //     <td>${expense.Amount}$</td>
-                    // </tr>
-
                 `<div class="media text-muted pt-3">
                     <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect fill="#007bff" width="100%" height="100%"></rect><text fill="#007bff" dy=".3em" x="50%" y="50%">32x32</text></svg>
                     <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
@@ -37,15 +31,6 @@ var expenses = {
 
                 expensesHtml += list;
             }
-            // sum = sum.toString();
-            // var totalRow = "";
-            // totalRow =
-            //     <tr>
-            //         <th scope="row">---</th>
-            //         <td>TOTAL AMOUNT</td>
-            //         <td>${sum}$</td>
-            //     </tr>
-            // expensesHtml += totalRow;
 
             $(".card-for-data").html(expensesHtml);
             // $("#expenses-list").html(expensesHtml);
