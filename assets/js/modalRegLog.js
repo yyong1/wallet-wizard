@@ -117,9 +117,15 @@ function registerUser(name, email, password) {
       localStorage.setItem("jwt_token", token);
       updateNavbar();
       window.location.href = "#income";
-      $("#exampleModal").modal("hide"); 
+      $("#exampleModal").modal("hide");
       toastr.success("Registred successfully");
       console.log(response, "success register user");
+      // income page
+      getPieChartDataIncome();
+      incomes.getincomes();
+      // expenses page
+      getPieChartDataExpenses();
+      expenses.getexpenses();
     },
     error: function (xhr, status, error) {
       if (xhr.status === 401) {
@@ -155,6 +161,12 @@ function loginUser(email, password) {
       $("#exampleModal").modal("hide");
       toastr.success("Loged in successfully");
       console.log(response, "success login user");
+      // income page
+      getPieChartDataIncome();
+      incomes.getincomes();
+      // expenses page
+      getPieChartDataExpenses();
+      expenses.getexpenses();
     },
     error: function (xhr, status, error) {
       if (xhr.status === 401) {
