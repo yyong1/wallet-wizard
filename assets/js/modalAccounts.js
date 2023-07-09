@@ -71,6 +71,7 @@ function addAccount() {
         dataType: "json",
         success: function (response) {
             console.log("Success: ", response);
+            accounts.getaccounts()
         },
         error: function (xhr, status, error) {
             console.log("Error: ", error);

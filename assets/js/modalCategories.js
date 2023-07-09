@@ -12,25 +12,22 @@ var categoryElement = `<div class="modal fade" id="categoryModal" tabindex="-1" 
         <form>
         <div class="form-group">
             <label for="recipient-name" class="col-form-label">Category name:</label>
-            <input type="text" class="form-control" id="recipient-name">
+            <input type="text" class="form-control" id="category-name">
         </div>
 
         <label for="message-text" class="col-form-label">Type of category:</label>
         <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Type
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Expense</a>
-            <a class="dropdown-item" href="#">Income</a>
-        </div>
-        
+        <select class="btn btn-secondary dropdown-toggle expense-income" id="dropdownMenuButton">
+            <option value="" disabled selected hidden>Expense / Income</option>
+            <option value="expense">Expense</option>
+            <option value="income">Income</option>
+        </select>
         </div>
 
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary close-footer" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary add-category">Add category</button>
     </div>
     </div>
@@ -52,31 +49,51 @@ $("body").on("click", ".add-category", function () {
     $("#categoryModal").modal("hide");
 });
 
+$('.expense-income').click(function () {
+    $('.dropdown-menu').toggle();
+});
+  
+
 function addCategory() {
     // if for future use
-    const id = utils.getCurrentUserId();
-    console.log("id: ", id);
+    const idCategory = utils.getCurrentUserId();
+    console.log("id: ", idCategory);
 
-    var CategoryName = $("#acc-name").val();
-    var value = $("#value-name").val();
-    var userID = id;
+    var CategoryName = $("#category-name").val();
+    var userID = idCategory;
+    var dropdown = document.getElementById("dropdownMenuButton");
+    var selectedValue = dropdown.value;
+    console.log(selectedValue);
+    var category;
+    if(selectedValue=="expense"){
+        console.log("napusi: ", selectedValue);
+        category = {
+            CategoryName: CategoryName,
+            UserID: idCategory,
+            Expenses: 1,
+        };
+    }
+    else{
+        console.log("kurca: ", selectedValue);
+        category = {
+            CategoryName: CategoryName,
+            UserID: idCategory,
+            Income: 1
+        };
+    }
 
-    var category = {
-        AccountName: accountName,
-        Value: value,
-        UserID: userID
-    };
-
-    console.log("add modal expense/income: ", account);
+    console.log("add modal expense/income: ", category);
 
     $.ajax({
-        url: "rest/add_accounts",
+        url: "rest/add_category",
         method: "POST",
-        data: JSON.stringify(account),
+        data: JSON.stringify(category),
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
             console.log("Success: ", response);
+            categories.getcategories();
+
         },
         error: function (xhr, status, error) {
             console.log("Error: ", error);

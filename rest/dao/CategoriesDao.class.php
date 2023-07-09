@@ -22,9 +22,9 @@ class CategoriesDao extends BaseDao
 
     public function get_categories_by_id($id){
         $stmt = $this->conn->prepare(
-            "SELECT CategoryID, CategoryName 
+            "SELECT  CategoryName, Expenses 
             FROM category 
-            WHERE UserID=:id AND Expenses=1"
+            WHERE UserID=:id"
         );
         $stmt->execute(['id' => $id]); //prevents an SQL injection **binding the parameter
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
