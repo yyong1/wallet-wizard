@@ -1,8 +1,33 @@
 // Modal for adding new expense
 
+// if for future use in the 
+// const idToAddExpInc = utils.getCurrentUserId();
+const idToAddExpInc = 5;
 
 function getCategoryToSelect() {
-    // get current user id and take data from backend
+
+  $.ajax({
+    url: "rest/categories/" + idToAddExpInc,
+    method: "GET",
+    contentType: "application/json",
+    dataType: "json",
+    success: function (response) {
+      console.log("Success: ", response);
+      var categories = response;
+      console.log("categories: ", categories);
+
+      var dropdown = $("#dropdownMenuButton");
+      for (var i = 0; i < categories.length; i++) {
+        var category = categories[i];
+        console.log("category: ", category);
+        var option = `<option class="dropdown-item" href="#">${category.categoryName}</option>`;
+        dropdown.append(option);
+      }
+    },
+    error: function (xhr, status, error) {
+      console.log("Error to get category list: ", error);
+    }
+  });
 };
 
 
@@ -25,9 +50,7 @@ var addModal = `
                 Choose category
               </button>
               <select class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <option class="dropdown-item" href="#">Action</option>
-                <option class="dropdown-item" href="#">Another action</option>
-                <option class="dropdown-item" href="#">Something else here</option>
+                
               </select>
             </div>
           </div>
@@ -41,6 +64,16 @@ var addModal = `
             <label for="expense-income-name" class="col-form-label">${addModalFor ? 'Expense name:' : 'Income name:'}</label>
             <input type="text" class="form-control" id="expense-income-name-input">
           </div>
+
+         <!-- <div class="form-group">
+            <label for="date" class="col-form-label">Date:</label>
+            <div class='input-group date' id='datetimepicker1'>
+              <input type='text' class="form-control" id="date-input" />
+              <span class="input-group-text">
+                <i class="fas fa-calendar"></i>
+              </span>
+            </div>
+          </div> -->
 
         </form>
       </div>
@@ -57,58 +90,82 @@ var addModal = `
 $("body").append(addModal);
 
 $("body").on("click", ".btn-add-expenses", function () {
-    $("#addExpIncModal").modal("show");
+  $("#addExpIncModal").modal("show");
+  getCategoryToSelect();
 });
 
+// datepicker try 
+
+// $(function () {
+//   $('#datetimepicker1').datetimepicker();
+// });
+
+// $(function () {
+//   const currentDate = new Date();
+//   const currentDateTimeString = currentDate.toISOString().split('T')[0];
+//   $('#date-input').val(currentDateTimeString);
+
+//   $('#date-input').datepicker({
+//     format: "yyyy-mm-dd",
+//     autoclose: true,
+//     todayHighlight: true
+//   });
+// });
+// $(function () {
+//   $('#date-input').datetimepicker({
+//     format: 'YYYY-MM-DD',
+//     useCurrent: false
+//   });
+//   // Set initial date value
+//   const currentDate = moment().format('YYYY-MM-DD');
+//   $('#date-input').val(currentDate);
+// });
+
 $("body").on("click", ".close, .close-footer", function () {
-    $("#addExpIncModal").modal("hide");
+  $("#addExpIncModal").modal("hide");
 });
 
 $('.btn-dropdown-toggle').click(function () {
-    $('.dropdown-menu').toggle();
+  $('.dropdown-menu').toggle();
 });
 
 $("body").on("click", ".btn-action-add-exp-inc", function () {
-    addExpense();
-    $("#addExpIncModal").modal("hide");
+  addExpense();
+  $("#addExpIncModal").modal("hide");
 });
 
 // to get value from dropdown
 var selectedValueCategory;
-$('select').on('change', function() {
-    selectedValueCategory = $(this).val();
-    console.log(selectedValueCategory);
-  });
+$('select').on('change', function () {
+  selectedValueCategory = $(this).val();
+  console.log(selectedValueCategory);
+});
 
 function addExpense() {
-    // if for future use
-    // const id = utils.getCurrentUserId();
-    const id = 5;
 
-    var expenseName = $("#expense-income-name-input").val();
-    var amount = $("#amount-name-input").val();
-    var category = selectedValueCategory;
+  var expenseName = $("#expense-income-name-input").val();
+  var amount = $("#amount-name-input").val();
+  var category = selectedValueCategory;
 
-    var expense = {
-        expenseName: expenseName,
-        amount: amount,
-        category: category
-    };
+  var expense = {
+    expenseName: expenseName,
+    amount: amount,
+    category: category
+  };
 
-    console.log("add modal expense/income: ", expense);
+  console.log("add modal expense/income: ", expense);
 
-    $.ajax({
-        url: "/add_expenses/" + id,
-        method: "POST",
-        data: JSON.stringify(expense),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (response) {
-            console.log("Success: ", response);
-        },
-        error: function (xhr, status, error) {
-            console.log("Error: ", error);
-        }
-    });
+  $.ajax({
+    url: "/add_expenses/" + idToAddExpInc,
+    method: "POST",
+    data: JSON.stringify(expense),
+    contentType: "application/json",
+    dataType: "json",
+    success: function (response) {
+      console.log("Success: ", response);
+    },
+    error: function (xhr, status, error) {
+      console.log("Error: ", error);
+    }
+  });
 }
-
