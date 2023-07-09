@@ -19,6 +19,17 @@ class CategoriesDao extends BaseDao
         $stmt->execute(['id' => $id]); //prevents an SQL injection **binding the parameter
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function get_categories_by_id($id){
+        $stmt = $this->conn->prepare(
+            "SELECT CategoryID, CategoryName 
+            FROM category 
+            WHERE UserID=:id AND Expenses=1"
+        );
+        $stmt->execute(['id' => $id]); //prevents an SQL injection **binding the parameter
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function add($entity){
         $columns = implode(", ", array_keys($entity));
         $placeholders = ":" . implode(", :", array_keys($entity));

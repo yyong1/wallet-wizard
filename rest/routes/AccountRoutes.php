@@ -25,7 +25,7 @@ Flight::route('GET /api/accountss/@firstName/@lastName', function ($firstName, $
 });
 
 
-Flight::route('POST /api/accountss', function () {
+Flight::route('POST /add_accounts', function () {
     $data = Flight::request()->data->getData();
     Flight::json(Flight::accountsService()->add($data));
 });

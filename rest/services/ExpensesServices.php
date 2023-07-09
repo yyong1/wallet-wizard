@@ -16,5 +16,8 @@ class ExpensesServices extends BaseService
         $expenses = $this->dao->get_expenses_for_graph($id);
         return $expenses;
     }
+    public function get_expense_categories_by_id($id){
+        return $this->dao->get_expense_categories_by_id($id);
+    }
 }
 ?>

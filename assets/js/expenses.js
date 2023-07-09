@@ -3,7 +3,8 @@ var expenses = {
         // get current user id
         let idForFutureUse = utils.getCurrentUserId();
         console.log("current id taken from utils - ", idForFutureUse);
-        var id = 5;
+        var id = idForFutureUse;
+        console.log("id: ", id);
 
         $.get('rest/expenses/' + id, function (data) {
             //console.log("data:", data);
