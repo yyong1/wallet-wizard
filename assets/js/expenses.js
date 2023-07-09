@@ -36,5 +36,4 @@ var expenses = {
             // $("#expenses-list").html(expensesHtml);
         });
     }
-
 }
