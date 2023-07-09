@@ -19,9 +19,8 @@ Flight::route('GET /incomes_for_graph/@id', function ($id) {
     Flight::json(Flight::incomeService()->get_incomes_for_graph($id));
 });
 
-
-Flight::route('GET /api/incomes/@firstName/@lastName', function ($firstName, $lastName) {
-    Flight::json(Flight::incomeService()->getincomeByFirstNameAndLastName($firstName, $lastName));
+Flight::route('GET /income_by_id/@id', function ($id) {
+    Flight::json(Flight::incomeService()->get_income_categories_by_id($id));
 });
 
 
@@ -31,19 +30,4 @@ Flight::route('POST /api/incomes', function () {
 });
 
 
-Flight::route('PUT /api/incomes/@id', function ($id) {
-    $data = Flight::request()->data->getData();
-    Flight::incomeService()->update($id, $data);
-    Flight::json(Flight::incomeService()->get_by_id($id));
-});
-
-
-Flight::route('DELETE /api/incomes/@id', function ($id) {
-    Flight::incomeService()->delete($id);
-});
-
-
-Flight::route('GET /incomes/@id', function ($id) {
-    Flight::json(Flight::incomeService()->get_income_with_user_by_id($id));
-});
 ?>

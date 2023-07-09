@@ -1,6 +1,6 @@
 var categories = {
     getcategories: function () {
-        var id = 5;
+        var id = utils.getCurrentUserId();
         $.get('rest/categories/'+id, function (data) {
 
             const wholeArraySize = Object.keys(data).length;

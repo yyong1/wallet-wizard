@@ -32,5 +32,15 @@ class IncomeDao extends BaseDao
         $stmt->execute(['id' => $id]); //prevents an SQL injection **binding the parameter
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function get_income_categories_by_id($id){
+        $stmt = $this->conn->prepare(
+            "SELECT CategoryID, CategoryName 
+            FROM category 
+            WHERE UserID=:id AND Income=1"
+        );
+        $stmt->execute(['id' => $id]); //prevents an SQL injection **binding the parameter
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

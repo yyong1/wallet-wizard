@@ -28,6 +28,11 @@ class CategoriesServices extends BaseService
         
         return $result;
     }
+    public function get_categories_by_id($id)
+    {
+        return $this->dao->get_categories_by_id($id);
+    }
+
     public function add($entity)
     {   
         return $this->dao->add($entity);

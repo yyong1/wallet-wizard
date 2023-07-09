@@ -24,7 +24,7 @@ var accountElement = `<div class="modal fade" id="accountModal" tabindex="-1" ro
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary close-footer" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Add account</button>
+        <button type="button" class="btn btn-primary add-account">Add account</button>
     </div>
     </div>
 </div>
@@ -39,3 +39,41 @@ $("body").on("click", '[data-target="#accountModal"]', function () {
 $("body").on("click", ".close, .close-footer", function () {
   $("#accountModal").modal("hide");
 });
+
+
+$("body").on("click", ".add-account", function () {
+    addAccount();
+    $("#accountModal").modal("hide");
+});
+
+function addAccount() {
+    // if for future use
+    const id = utils.getCurrentUserId();
+    console.log("id: ", id);
+
+    var accountName = $("#acc-name").val();
+    var value = $("#value-name").val();
+    var userID = id;
+
+    var account = {
+        AccountName: accountName,
+        Value: value,
+        UserID: userID
+    };
+
+    console.log("add modal expense/income: ", account);
+
+    $.ajax({
+        url: "rest/add_accounts",
+        method: "POST",
+        data: JSON.stringify(account),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+            console.log("Success: ", response);
+        },
+        error: function (xhr, status, error) {
+            console.log("Error: ", error);
+        }
+    });
+}

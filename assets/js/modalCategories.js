@@ -1,14 +1,5 @@
-/*$('#exampleModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var recipient = button.data('whatever') // Extract info from data-* attributes
-    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-    var modal = $(this)
-    modal.find('.modal-title').text('New message to ' + recipient)
-    modal.find('.modal-body input').val(recipient)
-  })*/
 
-var accountElement = `<div class="modal fade" id="accountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+var categoryElement = `<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class="modal-header">
@@ -40,15 +31,56 @@ var accountElement = `<div class="modal fade" id="accountModal" tabindex="-1" ro
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Insert category</button>
+        <button type="button" class="btn btn-primary add-category">Add category</button>
     </div>
     </div>
 </div>
 </div>`
 
-$("body").append(accountElement);
+$("body").append(categoryElement);
 
-$("body").on("click", '[data-target="#accountModal"]', function () {
-    $("#accountModal").modal("show");
+$("body").on("click", '[data-target="#categoryModal"]', function () {
+    $("#categoryModal").modal("show");
 });
+
+$("body").on("click", ".close, .close-footer", function () {
+  $("#categoryModal").modal("hide");
+});
+
+$("body").on("click", ".add-category", function () {
+    addCategory();
+    $("#categoryModal").modal("hide");
+});
+
+function addCategory() {
+    // if for future use
+    const id = utils.getCurrentUserId();
+    console.log("id: ", id);
+
+    var CategoryName = $("#acc-name").val();
+    var value = $("#value-name").val();
+    var userID = id;
+
+    var category = {
+        AccountName: accountName,
+        Value: value,
+        UserID: userID
+    };
+
+    console.log("add modal expense/income: ", account);
+
+    $.ajax({
+        url: "rest/add_accounts",
+        method: "POST",
+        data: JSON.stringify(account),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+            console.log("Success: ", response);
+        },
+        error: function (xhr, status, error) {
+            console.log("Error: ", error);
+        }
+    });
+}
 
