@@ -1,46 +1,46 @@
 var isSignUp = true;
 
 var modalElement = `
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">${isSignUp ? 'Registration' : 'Login'}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            ${isSignUp ? `
-            <div class="form-group">
-              <label for="user-name" class="col-form-label">Name:</label>
-              <input type="text" class="form-control" id="user-name">
-            </div>
-            ` : ''}
-            <div class="form-group">
-              <label for="email-name" class="col-form-label">Email:</label>
-              <input type="text" class="form-control" id="email-name">
-            </div>
-            <div class="form-group">
-              <label for="password-name" class="col-form-label">Password:</label>
-              <input type="password" class="form-control" id="password-name">
-            </div>
-            ${isSignUp ? `
-            <div class="form-group">
-              <label for="repeat-password-name" class="col-form-label">Repeat password:</label>
-              <input type="password" class="form-control" id="repeat-password-name">
-            </div>
-            ` : ''}
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary close-footer" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary btn-action">${isSignUp ? `Register` : `Login`}</button>
-        </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">${isSignUp ? 'Registration' : 'Login'}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          ${isSignUp ? `
+          <div class="form-group">
+            <label for="user-name" class="col-form-label">Name:</label>
+            <input type="text" class="form-control" id="user-name">
+          </div>
+          ` : ''}
+          <div class="form-group">
+            <label for="email-name" class="col-form-label">Email:</label>
+            <input type="text" class="form-control" id="email-name">
+          </div>
+          <div class="form-group">
+            <label for="password-name" class="col-form-label">Password:</label>
+            <input type="password" class="form-control" id="password-name">
+          </div>
+          ${isSignUp ? `
+          <div class="form-group">
+            <label for="repeat-password-name" class="col-form-label">Repeat password:</label>
+            <input type="password" class="form-control" id="repeat-password-name">
+          </div>
+          ` : ''}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary close-footer" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-action">${isSignUp ? `Register` : `Login`}</button>
       </div>
     </div>
   </div>
+</div>
 `;
 
 $("body").append(modalElement);
@@ -117,12 +117,23 @@ function registerUser(name, email, password) {
       localStorage.setItem("jwt_token", token);
       updateNavbar();
       window.location.href = "#income";
-
+      $("#exampleModal").modal("hide");
+      toastr.success("Registred successfully");
       console.log(response, "success register user");
+      // income page
+      getPieChartDataIncome();
+      incomes.getincomes();
+      // expenses page
+      getPieChartDataExpenses();
+      expenses.getexpenses();
     },
     error: function (xhr, status, error) {
-      console.log("reg fail");
-      console.error(error);
+      if (xhr.status === 401) {
+        toastr.error("Validation failed: Invalid input");
+      } else {
+        console.log("reg fail");
+        console.error(error);
+      }
     }
   });
 }
@@ -147,12 +158,23 @@ function loginUser(email, password) {
       localStorage.setItem("jwt_token", token);
       updateNavbar();
       window.location.href = "#income";
-
+      $("#exampleModal").modal("hide");
+      toastr.success("Loged in successfully");
       console.log(response, "success login user");
+      // income page
+      getPieChartDataIncome();
+      incomes.getincomes();
+      // expenses page
+      getPieChartDataExpenses();
+      expenses.getexpenses();
     },
     error: function (xhr, status, error) {
-      console.log("login fail");
-      console.error(error);
+      if (xhr.status === 401) {
+        toastr.error("Validation failed: Invalid input");
+      } else {
+        console.log("login fail");
+        console.error(error);
+      }
     }
   });
 }
