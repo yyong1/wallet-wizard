@@ -11,10 +11,11 @@ var labels = [];
 
 let idForFutureUseIncome = utils.getCurrentUserId();
 console.log("idForFutureUse income: " + idForFutureUseIncome);
+idForFutureUseIncome = 5; // <================================= hard coded for now
 
 function getPieChartDataIncome() {
     $.ajax({
-        url: 'rest/incomes_for_graph/'+idForFutureUseIncome,
+        url: 'rest/incomes_for_graph/' + idForFutureUseIncome,
         type: 'GET',
         contentType: "application/json",
         dataType: "json",

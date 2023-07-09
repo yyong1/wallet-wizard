@@ -1,13 +1,11 @@
 var expenses = {
     getexpenses: function () {
         // get current user id
-        let idForFutureUse = utils.getCurrentUserId();
-        console.log("current id taken from utils - ", idForFutureUse);
-        var id = idForFutureUse;
-        console.log("id: ", id);
+        let idForFutureUseExpensesGetData = utils.getCurrentUserId();
+        console.log("current id taken from utils - ", idForFutureUseExpensesGetData);
+        idForFutureUseExpensesGetData = 5; // <================================= hard coded for now
 
-        $.get('rest/expenses/' + id, function (data) {
-            //console.log("data:", data);
+        $.get('rest/expenses/' + idForFutureUseExpensesGetData, function (data) {
             var expensesHtml = "";
             //this is my new branch expenses
             var sum = 0;

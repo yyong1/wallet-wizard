@@ -1,12 +1,11 @@
 var incomes = {
     getincomes: function () {
         // get current user id
-        let idForFutureUse = utils.getCurrentUserId();
-        console.log("current id taken from utils - ", idForFutureUse);
-        var id = idForFutureUse;
-        console.log("id: ", id);
-
-        $.get('rest/incomes/' + id, function (data) {
+        let idForFutureUseIncomeGetData = utils.getCurrentUserId();
+        console.log("current id taken from utils - ", idForFutureUseIncomeGetData);
+        idForFutureUseIncomeGetData = 5; // <================================= hard coded for now
+        
+        $.get('rest/incomes/' + idForFutureUseIncomeGetData, function (data) {
             //console.log("data:", data);
             var incomesHtml = "";
             //this is my new branch incomes
