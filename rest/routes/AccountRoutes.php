@@ -42,4 +42,9 @@ Flight::route('DELETE /api/accountss/@id', function ($id) {
     Flight::accountsService()->delete($id);
 });
 
+Flight::route('GET /accounts_by_id/@id', function ($id) {
+    Flight::json(Flight::accountsService()->get_expense_accounts_by_id($id));
+});
+
+
 ?>

@@ -3,32 +3,61 @@
 // if for future use in the 
 // const idToAddExpInc = utils.getCurrentUserId();
 const idToAddExpInc = 5;
+var categories = []; // global variable to choose category from dropdown menu
+var accounts = []; // global variable to choose account from dropdown menu
 
 function getCategoryToSelect() {
-
   $.ajax({
-    url: "rest/categories/" + idToAddExpInc,
+    url: "rest/expenses_by_id/" + idToAddExpInc,
     method: "GET",
     contentType: "application/json",
     dataType: "json",
     success: function (response) {
       console.log("Success: ", response);
-      var categories = response;
+      categories = response;
       console.log("categories: ", categories);
 
-      var dropdown = $("#dropdownMenuButton");
+      // var dropdown = $("#dropdownMenuButtonToAdd");
+      var optionCategroy = "";
       for (var i = 0; i < categories.length; i++) {
         var category = categories[i];
-        console.log("category: ", category);
-        var option = `<option class="dropdown-item" href="#">${category.categoryName}</option>`;
-        dropdown.append(option);
+        console.log("category in loop: ", category);
+        optionCategroy += `<option class="dropdown-item">${category.CategoryName}</option>`;
       }
+      $(".dropdown-menu-category").append(optionCategroy);
     },
     error: function (xhr, status, error) {
       console.log("Error to get category list: ", error);
     }
   });
 };
+
+function getAccountToSelect() {
+  $.ajax({
+    url: "rest/accounts_by_id/" + idToAddExpInc,
+    method: "GET",
+    contentType: "application/json",
+    dataType: "json",
+    success: function (response) {
+      console.log("Success: ", response);
+      accounts = response;
+      console.log("accounts array -->: ", accounts);
+
+      // var dropdown = $("#dropdownMenuButtonToAdd");
+      var optionAccount = "";
+      for (var i = 0; i < accounts.length; i++) {
+        var account = accounts[i];
+        console.log("account in loop: ", account);
+        optionAccount += `<option class="dropdown-item">${account.AccountName}</option>`;
+      }
+      $(".dropdown-menu-account").append(optionAccount);
+    },
+    error: function (xhr, status, error) {
+      console.log("Error to get account list: ", error);
+    }
+  });
+};
+
 
 
 var addModalFor = true;
@@ -46,14 +75,25 @@ var addModal = `
         <form>
           <div class="form-group">
             <div class="dropdown">
-              <button class="btn btn-secondary btn-dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn btn-secondary btn-dropdown-toggle-category" type="button" id="dropdownMenuButtonToAdd" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Choose category
               </button>
-              <select class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <select class="dropdown-menu-category" aria-labelledby="dropdownMenuButtonToAdd">
                 
               </select>
             </div>
           </div>
+
+        <div class="form-group">
+          <div class="dropdown">
+            <button class="btn btn-secondary btn-dropdown-toggle-account" type="button" id="dropdownMenuButtonToAddAcc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Choose account
+            </button>
+            <select class="dropdown-menu-account" aria-labelledby="dropdownMenuButtonToAddAcc">
+              
+            </select>
+          </div>
+        </div>
 
           <div class="form-group">
             <label for="amount-name" class="col-form-label">Amount:</label>
@@ -92,6 +132,7 @@ $("body").append(addModal);
 $("body").on("click", ".btn-add-expenses", function () {
   $("#addExpIncModal").modal("show");
   getCategoryToSelect();
+  getAccountToSelect();
 });
 
 // datepicker try 
@@ -125,8 +166,12 @@ $("body").on("click", ".close, .close-footer", function () {
   $("#addExpIncModal").modal("hide");
 });
 
-$('.btn-dropdown-toggle').click(function () {
-  $('.dropdown-menu').toggle();
+$('.btn-dropdown-toggle-category').click(function () {
+  $('.dropdown-menu-category').toggle();
+});
+
+$('.btn-dropdown-toggle-account').click(function () {
+  $('.dropdown-menu-account').toggle();
 });
 
 $("body").on("click", ".btn-action-add-exp-inc", function () {
@@ -136,29 +181,49 @@ $("body").on("click", ".btn-action-add-exp-inc", function () {
 
 // to get value from dropdown
 var selectedValueCategory;
-$('select').on('change', function () {
+var selectedValueAccount;
+
+$('select.dropdown-menu-category').on('change', function () {
   selectedValueCategory = $(this).val();
-  console.log(selectedValueCategory);
 });
+
+$('select.dropdown-menu-account').on('change', function () {
+  selectedValueAccount = $(this).val();
+});
+
+function getCategoryIdLoop(catName) {
+  for (var i = 0; i < categories.length; i++) {
+    if (categories[i].CategoryName === catName) {
+      return categories[i].CategoryID;
+    }
+  }
+};
+
+function getAccountIdLoop(accName) {
+  for (var i = 0; i < accounts.length; i++) {
+    if (accounts[i].AccountName === accName) {
+      return accounts[i].AccountID;
+    }
+  }
+};
 
 function addExpense() {
 
-  var expenseName = $("#expense-income-name-input").val();
+  var expenseIncomeName = $("#expense-income-name-input").val();
   var amount = $("#amount-name-input").val();
   var category = selectedValueCategory;
+  var account = selectedValueAccount;
+  var subCategoryIdForAdd;
 
-  var expense = {
-    expenseName: expenseName,
-    amount: amount,
-    category: category
+
+  var subcategoryData = {
+    CategoryID: getCategoryIdLoop(category),
+    SubCategoryName: expenseIncomeName
   };
-
-  console.log("add modal expense/income: ", expense);
-
   $.ajax({
-    url: "/add_expenses/" + idToAddExpInc,
-    method: "POST",
-    data: JSON.stringify(expense),
+    url: 'rest/subcategory_add',
+    type: 'POST',
+    data: JSON.stringify(subcategoryData),
     contentType: "application/json",
     dataType: "json",
     success: function (response) {
@@ -168,4 +233,67 @@ function addExpense() {
       console.log("Error: ", error);
     }
   });
+  
+  $.ajax({
+    url: 'rest/get_subcategory_id',
+    type: 'GET',
+    contentType: "application/json",
+    dataType: "json",
+    success: function (response) {
+      subCategoryIdForAdd = response;
+      console.log("Success: ", response);
+    },
+    error: function (xhr, status, error) {
+      console.log("Error: ", error);
+    }
+  });
+
+
+  var expenseIncomeData = {
+    // SubCategoryName: expenseIncomeName,
+    SubCategoryID: '',
+    Amount: amount,
+    Category: category,
+    Account: account
+  };
+
+  console.log("add modal expense/income: ", expenseIncomeData);
+
+  var urls = addModalFor ?
+    ['rest/add_expense_name_subcategory', 'rest/add_amount_expense', 'rest/add_subcategory_expense']
+    : ['rest/add_income_name', 'rest/add_amount_income', 'rest/add_categor_income'];
+
+  var datatosent = JSON.stringify(expenseIncomeData);
+
+  console.log("data to send: ", datatosent);
+  $.each(urls, function (i, url) {
+    console.log("url from each ajax: ", url);
+    $.ajax({
+      url: url,
+      type: 'POST',
+      data: datatosent,
+      contentType: 'application/json',
+      dataType: 'json',
+      success: function (response) {
+        console.log("Success: ", response);
+      },
+      error: function (xhr, status, error) {
+        console.log("Error: ", error);
+      }
+    });
+  });
+
+  // $.ajax({
+  //   url: "/add_expenses/" + idToAddExpInc,
+  //   method: "POST",
+  //   data: JSON.stringify(expense),
+  //   contentType: "application/json",
+  //   dataType: "json",
+  //   success: function (response) {
+  //     console.log("Success: ", response);
+  //   },
+  //   error: function (xhr, status, error) {
+  //     console.log("Error: ", error);
+  //   }
+  // });
 }

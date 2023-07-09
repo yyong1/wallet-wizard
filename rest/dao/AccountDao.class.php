@@ -18,6 +18,15 @@ class AccountDao extends BaseDao
         $stmt->execute(['id' => $id]); //prevents an SQL injection **binding the parameter
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-   
+
+    public function get_expense_accounts_by_id($id){
+        $stmt = $this->conn->prepare(
+            "SELECT AccountID, AccountName
+            FROM account 
+            WHERE UserID=:id"
+        );
+        $stmt->execute(['id' => $id]); //prevents an SQL injection **binding the parameter
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

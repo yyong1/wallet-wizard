@@ -12,5 +12,10 @@ class AccountsServices extends BaseService
         $accounts = $this->dao->get_account_with_user_by_id($id);
         return $accounts;
     }
+
+    public function get_expense_accounts_by_id($id){
+        $accounts = $this->dao->get_expense_accounts_by_id($id);
+        return $accounts;
+    }
 }
 ?>
