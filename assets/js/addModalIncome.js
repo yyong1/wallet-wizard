@@ -17,13 +17,13 @@ function CategoryToSelect() {
       console.log("categories: ", categoriesincome);
 
       // var dropdown = $("#dropdownMenuButtonToAdd");
-      var optionCategroy = "";
+      var optionCategroyIncome = "";
       for (var i = 0; i < categoriesincome.length; i++) {
         var category = categoriesincome[i];
         console.log("category in loop: ", category);
-        optionCategroy += `<option class="dropdown-item">${category.CategoryName}</option>`;
+        optionCategroyIncome += `<option class="dropdown-item">${category.CategoryName}</option>`;
       }
-      $(".dropdown-menu-category-income").append(optionCategroy);
+      $(".dropdown-menu-category-income").append(optionCategroyIncome);
     },
     error: function (xhr, status, error) {
       console.log("Error to get category list: ", error);
@@ -43,13 +43,13 @@ function AccountToSelect() {
       console.log("accounts array -->: ", accountsincome);
 
       // var dropdown = $("#dropdownMenuButtonToAdd");
-      var optionAccount = "";
+      var optionAccountIncome = "";
       for (var i = 0; i < accountsincome.length; i++) {
         var account = accountsincome[i];
         console.log("account in loop: ", account);
-        optionAccount += `<option class="dropdown-item">${account.AccountName}</option>`;
+        optionAccountIncome += `<option class="dropdown-item">${account.AccountName}</option>`;
       }
-      $(".dropdown-menu-account-income").append(optionAccount);
+      $(".dropdown-menu-account-income").append(optionAccountIncome);
     },
     error: function (xhr, status, error) {
       console.log("Error to get account list: ", error);
@@ -165,7 +165,7 @@ $('select.dropdown-menu-account-income').on('change', function () {
   selectedValueAccountIncome = $(this).val();
 });
 
-function getCategoryIdLoop(catName) {
+function getCategoryIdLoopIncome(catName) {
   for (var i = 0; i < categoriesincome.length; i++) {
     if (categoriesincome[i].CategoryName === catName) {
       return categoriesincome[i].CategoryID;
@@ -173,7 +173,7 @@ function getCategoryIdLoop(catName) {
   }
 };
 
-function getAccountIdLoop(accName) {
+function getAccountIdLoopIncome(accName) {
   for (var i = 0; i < accountsincome.length; i++) {
     if (accountsincome[i].AccountName === accName) {
       return accountsincome[i].AccountID;
@@ -187,10 +187,10 @@ function addIncome() {
   var categoryIncome = selectedValueCategoryIncome;
   var accountIncome = selectedValueAccountIncome;
   var subCategoryIdForAddIncome;
-  var catIDIncome = getCategoryIdLoop(categoryIncome);
+  var catIDIncome = getCategoryIdLoopIncome(categoryIncome);
   var subNameIncome = expenseIncomeName;
   var usIDIncome = utils.getCurrentUserId()
-  var accIDIncome = getAccountIdLoop(accountIncome);
+  var accIDIncome = getAccountIdLoopIncome(accountIncome);
   var datIncome = new Date().toISOString().split('T')[0];
 
   var expenseIncomeDataIncome = {

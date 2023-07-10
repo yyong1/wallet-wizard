@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     getPieChartDataExpenses();
     expenses.getexpenses();
 });
@@ -14,16 +14,17 @@ console.log("idForFutureUse expenses: " + idForFutureUseExp);
 
 function getPieChartDataExpenses() {
     // idForFutureUseExp = 5; // <================================= hard coded for now
+
     $.ajax({
         url: 'rest/expenses_for_graph/' + idForFutureUseExp,
         type: 'GET',
         contentType: "application/json",
         dataType: "json",
-        beforeSend: function(xhr){
-            if (localStorage.getItem("jwt_token")){ // pass token for authorized requests
-                xhr.setRequestHeader('Authentication', localStorage.getItem("jwt_token"));
-            }
-        },  
+        // beforeSend: function(xhr){
+        //     if (localStorage.getItem("jwt_token")){ // pass token for authorized requests
+        //         xhr.setRequestHeader('Authentication', localStorage.getItem("jwt_token"));
+        //     }
+        // },  
         success: function (response) {
             console.log("response: ", response.length);
             jsonfile = {
