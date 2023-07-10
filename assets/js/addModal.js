@@ -181,13 +181,13 @@ function getAccountIdLoop(accName) {
 };
 
 function addExpense() {
-  var expenseIncomeName = $("#expense-income-name-input").val();
+  var expenseName = $("#expense-income-name-input").val();
   var amount = $("#amount-name-input").val();
   var category = selectedValueCategory;
   var account = selectedValueAccount;
   var subCategoryIdForAdd;
   var catID = getCategoryIdLoop(category);
-  var subName = expenseIncomeName;
+  var subName = expenseName;
   var usID = utils.getCurrentUserId()
   var accID= getAccountIdLoop(account);
   var dat=new Date().toISOString().split('T')[0];
@@ -267,6 +267,3 @@ function addExpense() {
     }
   });
 }
-
- 
-

@@ -59,8 +59,10 @@ function AccountToSelect() {
 
 
 
-var addModalFor = false;
-var addModal = `
+// var addModalFor = false;
+// var addModal = `
+addModalFor = false;
+addModal = `
 <div class="modal fade" id="addIncModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -74,10 +76,10 @@ var addModal = `
         <form>
           <div class="form-group">
             <div class="dropdown">
-              <button class="btn btn-secondary btn-dropdown-toggle-category" type="button" id="dropdownMenuButtonToAdd" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn btn-secondary btn-dropdown-toggle-category" type="button" id="dropdownMenuButtonToAddIncome" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Choose category
               </button>
-              <select class="dropdown-menu-category-income" aria-labelledby="dropdownMenuButtonToAdd">
+              <select class="dropdown-menu-category-income" aria-labelledby="dropdownMenuButtonToAddIncome">
                 
               </select>
             </div>
@@ -85,10 +87,10 @@ var addModal = `
 
         <div class="form-group">
           <div class="dropdown">
-            <button class="btn btn-secondary btn-dropdown-toggle-account" type="button" id="dropdownMenuButtonToAddAcc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-secondary btn-dropdown-toggle-account" type="button" id="dropdownMenuButtonToAddAccIncome" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Choose account
             </button>
-            <select class="dropdown-menu-account-income" aria-labelledby="dropdownMenuButtonToAddAcc">
+            <select class="dropdown-menu-account-income" aria-labelledby="dropdownMenuButtonToAddAccIncome">
               
             </select>
           </div>
@@ -152,15 +154,15 @@ $("body").on("click", ".btn-action-add-inc", function () {
 });
 
 // to get value from dropdown
-var selectedValueCategory;
-var selectedValueAccount;
+var selectedValueCategoryIncome;
+var selectedValueAccountIncome;
 
 $('select.dropdown-menu-category-income').on('change', function () {
-  selectedValueCategory = $(this).val();
+  selectedValueCategoryIncome = $(this).val();
 });
 
 $('select.dropdown-menu-account-income').on('change', function () {
-  selectedValueAccount = $(this).val();
+  selectedValueAccountIncome = $(this).val();
 });
 
 function getCategoryIdLoop(catName) {
@@ -181,30 +183,30 @@ function getAccountIdLoop(accName) {
 
 function addIncome() {
   var expenseIncomeName = $("#income-name-input").val();
-  var amount = $("#amount-name-input-income").val();
-  var category = selectedValueCategory;
-  var account = selectedValueAccount;
-  var subCategoryIdForAdd;
-  var catID = getCategoryIdLoop(category);
-  var subName = expenseIncomeName;
-  var usID = utils.getCurrentUserId()
-  var accID= getAccountIdLoop(account);
-  var dat=new Date().toISOString().split('T')[0];
+  var amountIncome = $("#amount-name-input-income").val();
+  var categoryIncome = selectedValueCategoryIncome;
+  var accountIncome = selectedValueAccountIncome;
+  var subCategoryIdForAddIncome;
+  var catIDIncome = getCategoryIdLoop(categoryIncome);
+  var subNameIncome = expenseIncomeName;
+  var usIDIncome = utils.getCurrentUserId()
+  var accIDIncome = getAccountIdLoop(accountIncome);
+  var datIncome = new Date().toISOString().split('T')[0];
 
   var expenseIncomeDataIncome = {
-    SubCategoryID: subCategoryIdForAdd,
-    Amount: amount,
-    UserID: usID,
-    CategoryID: catID,
-    AccountID: accID,
+    SubCategoryID: subCategoryIdForAddIncome,
+    Amount: amountIncome,
+    UserID: usIDIncome,
+    CategoryID: catIDIncome,
+    AccountID: accIDIncome,
     CurrencyID: 1,
-    Date: dat,
+    Date: datIncome,
     TimeFrameID: 1
   };
 
   var subcategoryDataIncome = {
-    CategoryID: catID,
-    SubCategoryName: subName
+    CategoryID: catIDIncome,
+    SubCategoryName: subNameIncome
   };
 
   
@@ -220,12 +222,12 @@ function addIncome() {
       
       // Step 2: Get Subcategory ID
       $.ajax({
-        url: 'rest/get_subcategory_id/' + catID + '/' + subName,
+        url: 'rest/get_subcategory_id/' + catIDIncome + '/' + subNameIncome,
         type: 'GET',
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-          subCategoryIdForAdd = response;
+          subCategoryIdForAddIncome = response;
           console.log("SUBCATEGORY BY ID: ", response);
           
           // Step 3: Add Expense
@@ -240,7 +242,7 @@ function addIncome() {
               
               // Step 4: Update Account Expense
               $.ajax({
-                url: 'rest/update_account_expense/' + catID + '/' + amount,
+                url: 'rest/update_account_expense/' + catIDIncome + '/' + amountIncome,
                 type: 'PUT',
                 contentType: "application/json",
                 dataType: "json",
@@ -267,6 +269,3 @@ function addIncome() {
     }
   });
 }
-
- 
-

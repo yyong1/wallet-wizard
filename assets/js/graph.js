@@ -13,7 +13,7 @@ let idForFutureUseExp = utils.getCurrentUserId();
 console.log("idForFutureUse expenses: " + idForFutureUseExp);
 
 function getPieChartDataExpenses() {
-    idForFutureUseExp = 5; // <================================= hard coded for now
+    // idForFutureUseExp = 5; // <================================= hard coded for now
     $.ajax({
         url: 'rest/expenses_for_graph/' + idForFutureUseExp,
         type: 'GET',
