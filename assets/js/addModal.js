@@ -1,8 +1,8 @@
 // Modal for adding new expense
 
 // if for future use in the 
-// const idToAddExpInc = utils.getCurrentUserId();
-const idToAddExpInc = 5;
+const idToAddExpInc = utils.getCurrentUserId();
+
 var categories = []; // global variable to choose category from dropdown menu
 var accounts = []; // global variable to choose account from dropdown menu
 
@@ -134,33 +134,6 @@ $("body").on("click", ".btn-add-expenses", function () {
   getCategoryToSelect();
   getAccountToSelect();
 });
-
-// datepicker try 
-
-// $(function () {
-//   $('#datetimepicker1').datetimepicker();
-// });
-
-// $(function () {
-//   const currentDate = new Date();
-//   const currentDateTimeString = currentDate.toISOString().split('T')[0];
-//   $('#date-input').val(currentDateTimeString);
-
-//   $('#date-input').datepicker({
-//     format: "yyyy-mm-dd",
-//     autoclose: true,
-//     todayHighlight: true
-//   });
-// });
-// $(function () {
-//   $('#date-input').datetimepicker({
-//     format: 'YYYY-MM-DD',
-//     useCurrent: false
-//   });
-//   // Set initial date value
-//   const currentDate = moment().format('YYYY-MM-DD');
-//   $('#date-input').val(currentDate);
-// });
 
 $("body").on("click", ".close, .close-footer", function () {
   $("#addExpIncModal").modal("hide");
@@ -294,35 +267,6 @@ function addExpense() {
     }
   });
 }
-
-
-
-
-  //console.log("add modal expense/income: ", expenseIncomeData);
-
-  /*var urls = addModalFor ?
-    ['rest/add_expense_name_subcategory', 'rest/add_amount_expense', 'rest/add_subcategory_expense']
-    : ['rest/add_income_name', 'rest/add_amount_income', 'rest/add_categor_income'];
-
-  var datatosent = JSON.stringify(expenseIncomeData);
-
-  console.log("data to send: ", datatosent);
-  $.each(urls, function (i, url) {
-    console.log("url from each ajax: ", url);
-    $.ajax({
-      url: url,
-      type: 'POST',
-      data: datatosent,
-      contentType: 'application/json',
-      dataType: 'json',
-      success: function (response) {
-        console.log("Success: ", response);
-      },
-      error: function (xhr, status, error) {
-        console.log("Error: ", error);
-      }
-    });
-  });*/
 
  
 
