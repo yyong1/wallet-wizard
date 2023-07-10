@@ -27,7 +27,7 @@ class Config
 
     public static function JWT_SECRET()
     {
-        return Config::get_env('web', 'jwt_secret');
+        return Config::get_env('JWT_SECRET', 'jwt_secret');
     }
     public static function get_env($name, $default)
     {

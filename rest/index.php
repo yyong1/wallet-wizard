@@ -3,6 +3,9 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
 
 require '../vendor/autoload.php';
 
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
 require "dao/AccountDao.class.php";
 require "dao/CategoriesDao.class.php";
 require "dao/ExpensesDao.class.php";
@@ -26,6 +29,26 @@ Flight::register('expensesService', "ExpensesServices");
 Flight::register('subcategoryService', "SubcategoryServices");
 Flight::register('incomeService', "IncomeServices");
 
+Flight::route('/*', function(){
+    //perform JWT decode
+    $path = Flight::request()->url;
+    if ($path == '/login' || $path =='/register' || $path == '/docs.json') return TRUE;
+
+    $headers = getallheaders();
+    if (!isset($headers['Authentication'])){
+        Flight::json(["message" => "Authorization is missing"], 403);
+        return FALSE;
+    }else{
+        try {
+            $decoded = (array)JWT::decode($headers['Authentication'], new Key(Config::JWT_SECRET(), 'HS256'));
+            Flight::set('user', $decoded);
+            return TRUE;
+        } catch (\Exception $e) {
+            Flight::json(["message" => "Authorization token is not valid"], 403);
+            return FALSE;
+        }
+    }
+});
 
 // import all routes
 require_once __DIR__ . '/routes/UserRoutes.php';
@@ -43,8 +66,5 @@ Flight::route('GET /', function () {
 
 
 Flight::start();
-
-
-// echo "hi";
 
 ?>
