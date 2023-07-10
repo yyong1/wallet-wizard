@@ -251,11 +251,26 @@ function addExpense() {
 
   var expenseIncomeData = {
     // SubCategoryName: expenseIncomeName,
-    SubCategoryID: '',
+    SubCategoryID: subCategoryIdForAdd,
     Amount: amount,
-    Category: category,
-    Account: account
+    UserID: utils.getCurrentUserId(),
+    CategoryID: getCategoryIdLoop(category),
+    AccountID: getAccountIdLoop(account)
   };
+
+  $.ajax({
+    url: 'rest/add_expense',
+    type: 'POST',
+    data: JSON.stringify(expenseIncomeData),
+    contentType: "application/json",
+    dataType: "json",
+    success: function (response) {
+      console.log("Success: ", response);
+    },
+    error: function (xhr, status, error) {
+      console.log("Error: ", error);
+    }
+  });
 
   console.log("add modal expense/income: ", expenseIncomeData);
 

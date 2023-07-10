@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 
 
@@ -15,20 +15,9 @@ Flight::route('GET /api/subcategorys/@id', function ($id) {
     Flight::json(Flight::subcategoryService()->get_by_id($id));
 });
 
-
-Flight::route('GET /api/subcategorys/@firstName/@lastName', function ($firstName, $lastName) {
-    Flight::json(Flight::subcategoryService()->getsubcategoryByFirstNameAndLastName($firstName, $lastName));
-});
-
-Flight::route('POST /add_subcategory_expense', function ($categoryId, $subName) {
-    $data = Flight::request()->data->getData();
-    Flight::subcategoryService()->getSubcategoryId($categoryId, $subName);
-});
-
 //  get subcategory id
-Flight::route('GET /get_subcategory_id', function ($categoryId, $subName) {
-    $data = Flight::request()->data->getData();
-    Flight::subcategoryService()->getSubcategoryId($categoryId, $subName);
+Flight::route('GET /get_subcategory_id/@categoryID/@SubCategoryName', function ($CategoryID,$SubCategoryName) {
+    Flight::subcategoryService()->get_subcategory_id($CategoryID, $SubCategoryName);
 });
 // ---> 
 Flight::route('POST /subcategory_add', function () {
