@@ -4,10 +4,10 @@
     Flight::categoriesService();
 });*/
 
-Flight::route('GET /hi', function () {
-    echo "hi";
-    //Flight::json(Flight::categoriesService()->get_all());
-});
+// Flight::route('GET /hi', function () {
+//     echo "hi";
+//     //Flight::json(Flight::categoriesService()->get_all());
+// });
 
 
 Flight::route('GET /categories/@id', function ($id) {

@@ -1,19 +1,17 @@
- <?php
+<?php
+
+// Flight::route('GET /hi', function () {
+//     echo "hi";
+//     //Flight::json(Flight::subcategoryService()->get_all());
+// });
+// Flight::route('GET /api/subcategorys', function () {
+//     Flight::json(Flight::subcategoryService()->get_all());
+// });
 
 
-
-Flight::route('GET /hi', function () {
-    echo "hi";
-    //Flight::json(Flight::subcategoryService()->get_all());
-});
-Flight::route('GET /api/subcategorys', function () {
-    Flight::json(Flight::subcategoryService()->get_all());
-});
-
-
-Flight::route('GET /api/subcategorys/@id', function ($id) {
-    Flight::json(Flight::subcategoryService()->get_by_id($id));
-});
+// Flight::route('GET /api/subcategorys/@id', function ($id) {
+//     Flight::json(Flight::subcategoryService()->get_by_id($id));
+// });
 
 //  get subcategory id
 Flight::route('GET /get_subcategory_id/@categoryID/@SubCategoryName', function ($CategoryID,$SubCategoryName) {
@@ -30,7 +28,6 @@ Flight::route('PUT /subcategory/@id', function ($id) {
     Flight::subcategoryService()->update($id, $data);
     Flight::json(Flight::subcategoryService()->get_by_id($id));
 });
-
 
 Flight::route('DELETE /api/subcategorys/@id', function ($id) {
     Flight::subcategoryService()->delete($id);
