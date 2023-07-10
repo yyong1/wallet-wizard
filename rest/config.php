@@ -3,7 +3,7 @@ class Config
 {
     // $host = 'localhost' might not work, use '127.0.0.1' if that is the case
     public static function DB_HOST(){
-        return Config::get_env('DB_HOST', 'db-mysql-fra1-34064-do-user-14289781-0.b.db.ondigitalocean.com');
+        return Config::get_env('DB_HOST', 'localhost');
     }
     // public static $host = '127.0.0.1';
     public static function DB_SCHEME(){
@@ -12,16 +12,16 @@ class Config
     // public static $database = 'web-project-base';
     public static function DB_USERNAME()
     {
-        return Config::get_env('DB_USERNAME', 'doadmin');
+        return Config::get_env('DB_USERNAME', 'root');
     }
     // public static $username = 'root';
     public static function DB_PASSWORD(){
-        return Config::get_env('DB_PASSWORD', 'AVNS_daKXCm7AQ3GWxxN0Vl4');
+        return Config::get_env('DB_PASSWORD', '123');
     }
     // public static $password = '123';
     public static function DB_PORT()
     {
-        return Config::get_env('DB_PORT', '25060');
+        return Config::get_env('DB_PORT', '3306');
     }
     // public static $port = '3306';
 
