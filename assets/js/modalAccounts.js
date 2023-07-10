@@ -37,7 +37,7 @@ $("body").on("click", '[data-target="#accountModal"]', function () {
 });
 
 $("body").on("click", ".close, .close-footer", function () {
-  $("#accountModal").modal("hide");
+    $("#accountModal").modal("hide");
 });
 
 
@@ -48,17 +48,17 @@ $("body").on("click", ".add-account", function () {
 
 function addAccount() {
     // if for future use
-    const id = utils.getCurrentUserId();
-    console.log("id: ", id);
+    // const id = utils.getCurrentUserId();
+    // console.log("id: ", id);
 
     var accountName = $("#acc-name").val();
     var value = $("#value-name").val();
-    var userID = id;
+    // var userID = id;
 
     var account = {
         AccountName: accountName,
         Value: value,
-        UserID: userID
+        UserID: utils.getCurrentUserId()
     };
 
     console.log("add modal expense/income: ", account);
@@ -69,6 +69,11 @@ function addAccount() {
         data: JSON.stringify(account),
         contentType: "application/json",
         dataType: "json",
+        beforeSend: function (xhr) {
+            if (localStorage.getItem("jwt_token")) { // pass token for authorized requests
+                xhr.setRequestHeader('Authentication', localStorage.getItem("jwt_token"));
+            }
+        },
         success: function (response) {
             console.log("Success: ", response);
             accounts.getaccounts()

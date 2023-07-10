@@ -11,7 +11,7 @@ var labels = [];
 
 let idForFutureUseIncome = utils.getCurrentUserId();
 console.log("idForFutureUse income: " + idForFutureUseIncome);
- // <================================= hard coded for now
+// idForFutureUseExp = 5// <================================= hard coded for now
 
 function getPieChartDataIncome() {
     $.ajax({

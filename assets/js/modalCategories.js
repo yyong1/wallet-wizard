@@ -41,7 +41,7 @@ $("body").on("click", '[data-target="#categoryModal"]', function () {
 });
 
 $("body").on("click", ".close, .close-footer", function () {
-  $("#categoryModal").modal("hide");
+    $("#categoryModal").modal("hide");
 });
 
 $("body").on("click", ".add-category", function () {
@@ -52,7 +52,7 @@ $("body").on("click", ".add-category", function () {
 $('.expense-income').click(function () {
     $('.dropdown-menu').toggle();
 });
-  
+
 
 function addCategory() {
     // if for future use
@@ -65,7 +65,7 @@ function addCategory() {
     var selectedValue = dropdown.value;
     console.log(selectedValue);
     var category;
-    if(selectedValue=="expense"){
+    if (selectedValue == "expense") {
         console.log("napusi: ", selectedValue);
         category = {
             CategoryName: CategoryName,
@@ -73,7 +73,7 @@ function addCategory() {
             Expenses: 1,
         };
     }
-    else{
+    else {
         console.log("kurca: ", selectedValue);
         category = {
             CategoryName: CategoryName,
@@ -90,6 +90,11 @@ function addCategory() {
         data: JSON.stringify(category),
         contentType: "application/json",
         dataType: "json",
+        beforeSend: function (xhr) {
+            if (localStorage.getItem("jwt_token")) { // pass token for authorized requests
+                xhr.setRequestHeader('Authentication', localStorage.getItem("jwt_token"));
+            }
+        },
         success: function (response) {
             console.log("Success: ", response);
             categories.getcategories();

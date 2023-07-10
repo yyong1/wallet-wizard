@@ -36,8 +36,8 @@ Flight::register('incomeService', "IncomeServices");
 
 //     $headers = getallheaders();
 //     if (!isset($headers['Authentication'])){
-//         Flight::json(["message" => $headers]);
-//         // Flight::json(["message" => "Authorization is missing"], 403);
+//         // Flight::json(["message" => $headers]);
+//         Flight::json(["message" => "Authorization is missing"], 403);
 //         return FALSE;
 //     }else{
 //         try {
@@ -50,6 +50,12 @@ Flight::register('incomeService', "IncomeServices");
 //         }
 //     }
 // });
+
+Flight::route('GET /docs.json', function(){
+    $openapi = \OpenApi\scan('routes');
+    header('Content-Type: application/json');
+    echo $openapi->toJson();
+});
 
 // import all routes
 require_once __DIR__ . '/routes/UserRoutes.php';

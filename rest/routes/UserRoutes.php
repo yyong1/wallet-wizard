@@ -3,10 +3,24 @@
 use Firebase\JWT\JWT;
 use \Illuminate\Support\Facades\Hash;
 
+/**
+ * @OA\Get(path="/users", tags={"Users"}, security={{"ApiKeyAuth": {}}},
+ *         summary="Return all users",
+ *         @OA\Response( response=200, description="List of users")
+ * )
+ */
 Flight::route('GET /users', function () {
     Flight::json(Flight::userService()->get_all());
 });
 
+/**
+ * @OA\Get(path="/users/{id}", tags={"Users"}, security={{"ApiKeyAuth": {}}},
+ *     summary="Return user by ID",
+ *     @OA\Parameter(in="path", name="id", example=10, description="User data"),
+ *     @OA\Response(response="200", description="Get user by ID")
+ *     @OA\Response(response="404", description="User not found")
+ * )
+ */
 Flight::route('GET /users/@id', function ($id) {
     $user = Flight::userService()->getUserById($id);
     if ($user) {
@@ -16,7 +30,30 @@ Flight::route('GET /users/@id', function ($id) {
     }
 });
 
-
+/**
+ * @OA\Post(path="/login", tags={"Users"}, description="Check user (login) data and returns JWT token", security={{"ApiKeyAuth": {}}},
+ *     @OA\RequestBody(required=true, description="Account data",
+ *         @OA\MediaType(mediaType="application/json",
+ *             @OA\Schema(required={"Email", "Password"},
+ *                 @OA\Property(property="Email", type="string", example="exampl@mail.com"),
+ *                 @OA\Property(property="Password", type="string", example="!123$rY")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="User has been successfully logged in"
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Wrong password"
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="User not found"
+ *     )
+ * )
+ */
 Flight::route('POST /login', function () {
     $loginData = Flight::request()->data->getData();
 
@@ -43,7 +80,27 @@ Flight::route('POST /login', function () {
     }
 });
 
-
+/**
+ * @OA\Post(path="/register", tags={"Users"}, description="Check user (registration) data and returns JWT token", security={{"ApiKeyAuth": {}}},
+ *     @OA\RequestBody(required=true, description="Account data",
+ *         @OA\MediaType(mediaType="application/json",
+ *             @OA\Schema(required={"Email", "Password", "Username"},
+ *                 @OA\Property(property="Email", type="string", example="exampl@mail.com"),
+ *                 @OA\Property(property="Password", type="string", example="!123$rY"),
+ *                 @OA\Property(property="Username", type="string", example="John Doe")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="User has been successfully registered"
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Registration failed"
+ *     )
+ * )
+ */
 Flight::route('POST /register', function () {
     $registrationData = Flight::request()->data->getData();
 
@@ -64,28 +121,5 @@ Flight::route('POST /register', function () {
         Flight::json(['error' => 'Registration failed'], 500);
     }
 });
-
-Flight::route('GET /users/@id', function ($id) {
-    Flight::json(Flight::userService()->get_by_id($id));
-});
-
-// Flight::route('GET /api/users/@firstName/@lastName', function ($firstName, $lastName) {
-//     Flight::json(Flight::userService()->getUserByFirstNameAndLastName($firstName, $lastName));
-// });
-
-// Flight::route('POST /api/users', function () {
-//     $data = Flight::request()->data->getData();
-//     Flight::json(Flight::userService()->add($data));
-// });
-
-// Flight::route('PUT /api/users/@id', function ($id) {
-//     $data = Flight::request()->data->getData();
-//     Flight::userService()->update($id, $data);
-//     Flight::json(Flight::userService()->get_by_id($id));
-// });
-
-// Flight::route('DELETE /api/users/@id', function ($id) {
-//     Flight::userService()->delete($id);
-// });
 
 ?>

@@ -36,7 +36,7 @@ var incomes = {
 
         $.ajax({
             url: 'rest/incomes/' + idForFutureUseIncomeGetData,
-            type: 'GET',
+            method: 'GET',
             contentType: "application/json",
             dataType: "json",
             beforeSend: function (xhr) {

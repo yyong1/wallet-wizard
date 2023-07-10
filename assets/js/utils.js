@@ -21,6 +21,6 @@ var utils = {
         console.log("token in log - ", token);
         var user = utils.parseJwt(token);
         console.log(" user - ", user);
-        return parseInt(user.UserID);
+        return parseInt(user[0].UserID || user.UserID);
     },
 };

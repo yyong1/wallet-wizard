@@ -226,6 +226,11 @@ function addIncome() {
         type: 'GET',
         contentType: "application/json",
         dataType: "json",
+        beforeSend: function(xhr){
+          if (localStorage.getItem("jwt_token")){ // pass token for authorized requests
+              xhr.setRequestHeader('Authentication', localStorage.getItem("jwt_token"));
+          }
+        },  
         success: function (response) {
           subCategoryIdForAddIncome = response;
           console.log("SUBCATEGORY BY ID: ", response);
