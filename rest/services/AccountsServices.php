@@ -20,6 +20,10 @@ class AccountsServices extends BaseService
 
     public function update_account_expense($accountid, $value){
         return $this->dao->update_account_expense($accountid, $value); 
+    } 
+
+    public function update_account_income($accountid, $value){
+        return $this->dao->update_account_income($accountid, $value); 
     }    
     
 }

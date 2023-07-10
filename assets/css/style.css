@@ -249,8 +249,18 @@ padding-right: 0;
     overflow-y: auto; /* Enable vertical scrolling if needed */
 }
 
+.card-income{
+    /* Other styles */
+    overflow-y: auto; /* Enable vertical scrolling if needed */
+}
+
 /* bad practice but simple to use (!important) */
 .btn-add-expenses {
+    background-color: #9F4DCA !important; 
+    color: white;
+}
+
+.btn-add-income {
     background-color: #9F4DCA !important; 
     color: white;
 }

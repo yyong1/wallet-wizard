@@ -3,10 +3,8 @@ var incomes = {
         // get current user id
         let idForFutureUseIncomeGetData = utils.getCurrentUserId();
         console.log("current id taken from utils - ", idForFutureUseIncomeGetData);
-        idForFutureUseIncomeGetData = 5; // <================================= hard coded for now
-        
         $.get('rest/incomes/' + idForFutureUseIncomeGetData, function (data) {
-            //console.log("data:", data);
+            console.log("data:", data);
             var incomesHtml = "";
             //this is my new branch incomes
             var sum = 0;

@@ -3,7 +3,7 @@ var expenses = {
         // get current user id
         let idForFutureUseExpensesGetData = utils.getCurrentUserId();
         console.log("current id taken from utils - ", idForFutureUseExpensesGetData);
-        idForFutureUseExpensesGetData = 5; // <================================= hard coded for now
+       
 
         $.get('rest/expenses/' + idForFutureUseExpensesGetData, function (data) {
             var expensesHtml = "";

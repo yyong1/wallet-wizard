@@ -37,7 +37,10 @@ Flight::route('POST /add_accounts', function () {
 
 Flight::route('PUT /update_account_expense/@accountid/@value', function ($accountid, $value) {
     Flight::accountsService()->update_account_expense($accountid, $value);
-    Flight::json(Flight::accountsService()->get_all());
+});
+
+Flight::route('PUT /update_account_income/@accountid/@value', function ($accountid, $value) {
+    Flight::accountsService()->update_account_income($accountid, $value);
 });
 
 

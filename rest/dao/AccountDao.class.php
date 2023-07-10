@@ -38,6 +38,15 @@ class AccountDao extends BaseDao
         $stmt->execute(['accountid' => $accountid, 'valuee' =>$value]); //prevents an SQL injection **binding the parameter
     }
 
+    public function update_account_income($accountid,$value){
+        $stmt = $this->conn->prepare(
+            "UPDATE account
+            SET Value = Value+:valuee
+            WHERE AccountID = :accountid"
+        );
+        $stmt->execute(['accountid' => $accountid, 'valuee' =>$value]); //prevents an SQL injection **binding the parameter
+    }
+
 
 }
 ?>
