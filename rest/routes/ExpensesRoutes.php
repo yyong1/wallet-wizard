@@ -16,4 +16,9 @@ Flight::route('GET /expenses_by_id/@id', function ($id) {
     Flight::json(Flight::expensesService()->get_expense_categories_by_id($id));
 });
 
+Flight::route('POST /add_expense', function () {
+    $data = Flight::request()->data->getData();
+    Flight::json(Flight::expensesService()->add($data));
+});
+
 ?>

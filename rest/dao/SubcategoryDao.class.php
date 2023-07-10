@@ -8,5 +8,14 @@ class SubcategoryDao extends BaseDao
     {
         parent::__construct("subcategory");
     }
+    public function get_subcategory_id($categoryId, $subName){
+        $stmt = $this->conn->prepare("
+        SELECT SubCategoryID 
+        FROM subcategory 
+        WHERE CategoryID=:categoryId AND SubCategoryName=:subName");
+        $stmt->execute(['categoryId' => $categoryId, 'subName' => $subName]); // binding the values to prevent injections
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 }
 ?>

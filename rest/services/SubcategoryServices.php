@@ -13,5 +13,10 @@ class SubcategoryServices extends BaseService
     {
         return $this->dao->getUserByFirstNameAndLastName($firstName, $lastName);
     }
+
+    function get_subcategory_id($categoryId, $subName)
+    {
+        return $this->dao->get_subcategory_id($categoryId, $subName);
+    }
 }
 ?>
