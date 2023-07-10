@@ -37,6 +37,11 @@ Flight::route('PUT /api/accountss/@id', function ($id) {
     Flight::json(Flight::accountsService()->get_by_id($id));
 });
 
+Flight::route('PUT /update_account_expense/@accountid/@value', function ($accountid, $value) {
+    Flight::accountsService()->update_account_expense($accountid, $value);
+    Flight::json(Flight::accountsService()->get_all());
+});
+
 
 Flight::route('DELETE /api/accountss/@id', function ($id) {
     Flight::accountsService()->delete($id);

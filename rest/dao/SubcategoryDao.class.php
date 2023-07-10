@@ -14,7 +14,7 @@ class SubcategoryDao extends BaseDao
         FROM subcategory 
         WHERE CategoryID=:categoryId AND SubCategoryName=:subName");
         $stmt->execute(['categoryId' => $categoryId, 'subName' => $subName]); // binding the values to prevent injections
-        return $stmt->fetch();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
 }

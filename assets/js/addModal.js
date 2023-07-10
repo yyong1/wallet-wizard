@@ -208,18 +208,34 @@ function getAccountIdLoop(accName) {
 };
 
 function addExpense() {
-
   var expenseIncomeName = $("#expense-income-name-input").val();
   var amount = $("#amount-name-input").val();
   var category = selectedValueCategory;
   var account = selectedValueAccount;
   var subCategoryIdForAdd;
+  var catID = getCategoryIdLoop(category);
+  var subName = expenseIncomeName;
+  var usID = utils.getCurrentUserId()
+  var accID= getAccountIdLoop(account);
+  var dat=new Date().toISOString().split('T')[0];
 
+  var expenseIncomeData = {
+    SubCategoryID: subCategoryIdForAdd,
+    Amount: amount,
+    UserID: usID,
+    CategoryID: catID,
+    AccountID: accID,
+    CurrencyID: 1,
+    Date: dat,
+    TimeFrameID: 1
+  };
 
   var subcategoryData = {
-    CategoryID: getCategoryIdLoop(category),
-    SubCategoryName: expenseIncomeName
+    CategoryID: catID,
+    SubCategoryName: subName
   };
+  
+  // Step 1: Add Subcategory
   $.ajax({
     url: 'rest/subcategory_add',
     type: 'POST',
@@ -227,54 +243,64 @@ function addExpense() {
     contentType: "application/json",
     dataType: "json",
     success: function (response) {
-      console.log("Success: ", response);
+      console.log("SUBCATEGORY ADD: ", response);
+      
+      // Step 2: Get Subcategory ID
+      $.ajax({
+        url: 'rest/get_subcategory_id/' + catID + '/' + subName,
+        type: 'GET',
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+          subCategoryIdForAdd = response;
+          console.log("SUBCATEGORY BY ID: ", response);
+          
+          // Step 3: Add Expense
+          $.ajax({
+            url: 'rest/add_expense',
+            type: 'POST',
+            data: JSON.stringify(expenseIncomeData),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+              console.log("ADD EXPENSE: ", response);
+              
+              // Step 4: Update Account Expense
+              $.ajax({
+                url: 'rest/update_account_expense/' + catID + '/' + amount,
+                type: 'PUT',
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+                  console.log("Success: ", response);
+                },
+                error: function (xhr, status, error) {
+                  console.log("Error: ", error);
+                }
+              });
+            },
+            error: function (xhr, status, error) {
+              console.log("Error: ", error);
+            }
+          });
+        },
+        error: function (xhr, status, error) {
+          console.log("Error: ", error);
+        }
+      });
     },
     error: function (xhr, status, error) {
       console.log("Error: ", error);
     }
   });
-  
-  $.ajax({
-    url: 'rest/get_subcategory_id',
-    type: 'GET',
-    contentType: "application/json",
-    dataType: "json",
-    success: function (response) {
-      subCategoryIdForAdd = response;
-      console.log("Success: ", response);
-    },
-    error: function (xhr, status, error) {
-      console.log("Error: ", error);
-    }
-  });
+}
 
 
-  var expenseIncomeData = {
-    // SubCategoryName: expenseIncomeName,
-    SubCategoryID: subCategoryIdForAdd,
-    Amount: amount,
-    UserID: utils.getCurrentUserId(),
-    CategoryID: getCategoryIdLoop(category),
-    AccountID: getAccountIdLoop(account)
-  };
 
-  $.ajax({
-    url: 'rest/add_expense',
-    type: 'POST',
-    data: JSON.stringify(expenseIncomeData),
-    contentType: "application/json",
-    dataType: "json",
-    success: function (response) {
-      console.log("Success: ", response);
-    },
-    error: function (xhr, status, error) {
-      console.log("Error: ", error);
-    }
-  });
 
-  console.log("add modal expense/income: ", expenseIncomeData);
+  //console.log("add modal expense/income: ", expenseIncomeData);
 
-  var urls = addModalFor ?
+  /*var urls = addModalFor ?
     ['rest/add_expense_name_subcategory', 'rest/add_amount_expense', 'rest/add_subcategory_expense']
     : ['rest/add_income_name', 'rest/add_amount_income', 'rest/add_categor_income'];
 
@@ -296,19 +322,7 @@ function addExpense() {
         console.log("Error: ", error);
       }
     });
-  });
+  });*/
 
-  // $.ajax({
-  //   url: "/add_expenses/" + idToAddExpInc,
-  //   method: "POST",
-  //   data: JSON.stringify(expense),
-  //   contentType: "application/json",
-  //   dataType: "json",
-  //   success: function (response) {
-  //     console.log("Success: ", response);
-  //   },
-  //   error: function (xhr, status, error) {
-  //     console.log("Error: ", error);
-  //   }
-  // });
-}
+ 
+
